@@ -1,6 +1,6 @@
 NAME = fractol
 
-SRCS = main.c init.c
+SRCS = main.c init.c events.c
 
 OBJS = $(SRCS:.c=.o)
 
