@@ -6,12 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:29:33 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/11 13:52:59 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:30:20 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "minilibx-linux/mlx.h"
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
@@ -32,31 +31,92 @@ void	img_pix_put(t_img *img, int x, int y, int color)
     }
 }
 
-int	main(void)
+int	ft_power(int num, int power)
 {
-	t_window	*window;
+	if (power == 0)
+		return (1);
+	return (num * ft_power(num, power - 1));
+}
+
+t_point	mult_cmplx(t_point c1, t_point c2)
+{
+	t_point	res;
+
+	res.x = (c1.x * c2.x) - (c1.y * c2.y);
+	res.y = (c1.x * c2.y) + (c1.y * c2.x);
+	return (res);
+}
+
+t_point	add_cmplx(t_point c1, t_point c2)
+{
+	t_point	res;
+
+	res.x = c1.x + c2.x;
+	res.y = c1.y + c2.y;
+	return (res);
+}
+
+t_point	iterate(t_point c)
+{
+	int		i;
+	t_point	z;
+
+	i = 0;
+	z.x = 0;
+	z.y = 0;
+	while (i++ < NB_ITER)
+		z = add_cmplx(mult_cmplx(z, z), c); // Zn+1 = Zn^2 + c
+	return (z);
+}
+
+int	modulus(t_point z)
+{
+	return ((int) (sqrt((z.x * z.x) + (z.y * z.y)) / 1));
+}
+
+int is_in_mandelbrot(t_point point) {
+    //double x0 = (double)point.x / WINDOW_WIDTH * 3.5 - 2.5; // Adjust the scaling and translation factors
+    //double y0 = (double)point.y / WINDOW_HEIGHT * 2.0 - 1.0; // Adjust the scaling and translation factors
+	
+    if (modulus(iterate(point)) > 4)
+		return (1);
+    return (0); // The point is in the Mandelbrot set
+}
+
+int	draw(t_img *img, int base_color)
+{
 	int			x;
 	int			y;
 
-	window = init_window();
-	if (!window)
-		return (MLX_ERROR);
-	window->img.mlx_img = mlx_new_image(window->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	window->img.addr = mlx_get_data_addr(window->img.mlx_img, &(window->img.bpp), &(window->img.line_len), &(window->img.endian));
 	x = 0;
 	while (x < WINDOW_WIDTH)
 	{
 		y = 0;
 		while (y < WINDOW_HEIGHT)
 		{
-			if (y == x || x == WINDOW_WIDTH / 2 || y == WINDOW_HEIGHT / 2)
+			if (is_in_mandelbrot((t_point) {.x = x, .y = y}))
 			{
-				img_pix_put(&(window->img), x, y, 0x0FFFFFF);
+				img_pix_put(img, x, y, base_color);
 			}
 			y++;
 		}
 		x++;
 	}
+    
+	return (1);
+}
+
+int	main(void)
+{
+	t_window	*window;
+
+	window = init_window();
+	if (!window)
+		return (MLX_ERROR);
+	window->img.mlx_img = mlx_new_image(window->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	window->img.addr = mlx_get_data_addr(window->img.mlx_img, &(window->img.bpp), &(window->img.line_len), &(window->img.endian));
+
+	draw(&(window->img), 0x0FFFFFF);
     mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, window->img.mlx_img, 0, 0);
 
     /* Setup hooks */ 

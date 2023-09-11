@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/11 13:52:41 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:15:31 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 # define FRACTOL_H
 # define MLX_ERROR 1
 # define WINDOW_WIDTH 1200
-# define WINDOW_HEIGHT 300
+# define WINDOW_HEIGHT 800
+# define NB_ITER 100
+# define DEGREE 2
 
 # include "minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdlib.h>
+# include <math.h>
 
 typedef struct s_img
 {
@@ -35,8 +38,13 @@ typedef	struct s_window
 	void	*mlx_ptr;
     t_img	img;
 	void	*win_ptr;
-} t_window;
+}	t_window;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}	t_point;
 
 /*----------------init.c---------------------*/
 t_window	*init_window(void);

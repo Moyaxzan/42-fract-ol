@@ -6,7 +6,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g 
 
 RM_FLAGS = -f
 
@@ -26,7 +26,7 @@ MLX = $(MLX_PATH)/libmlx.a
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) -L$(MLX_PATH) $^ $(MLX_FLAGS) -o $@
+	$(CC) $(CFLAGS) -L$(MLX_PATH) $^ $(MLX_FLAGS) -lm -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
