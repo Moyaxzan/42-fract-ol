@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:29:33 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/11 18:30:20 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/12 11:45:08 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_point	iterate(t_point c)
 
 int	modulus(t_point z)
 {
-	return ((int) (sqrt((z.x * z.x) + (z.y * z.y)) / 1));
+	return (round((sqrt((z.x * z.x) + (z.y * z.y)))));
 }
 
 int is_in_mandelbrot(t_point point) {
