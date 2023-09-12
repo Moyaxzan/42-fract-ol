@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:29:33 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/12 11:45:08 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:47:30 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,21 @@
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
-    char    *pixel;
-    int		i;
+	char	*pixel;
+	int		i;
 
-    i = img->bpp - 8;
-    pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-    while (i >= 0)
-    {
-        /* big endian, MSB is the leftmost bit */
-        if (img->endian != 0)
-            *pixel++ = (color >> i) & 0xFF;
-        /* little endian, LSB is the leftmost bit */
-        else
-            *pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
-        i -= 8;
-    }
-}
-
-int	ft_power(int num, int power)
-{
-	if (power == 0)
-		return (1);
-	return (num * ft_power(num, power - 1));
-}
-
-t_point	mult_cmplx(t_point c1, t_point c2)
-{
-	t_point	res;
-
-	res.x = (c1.x * c2.x) - (c1.y * c2.y);
-	res.y = (c1.x * c2.y) + (c1.y * c2.x);
-	return (res);
-}
-
-t_point	add_cmplx(t_point c1, t_point c2)
-{
-	t_point	res;
-
-	res.x = c1.x + c2.x;
-	res.y = c1.y + c2.y;
-	return (res);
+	i = img->bpp - 8;
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	while (i >= 0)
+	{
+		/* big endian, MSB is the leftmost bit */
+		if (img->endian != 0)
+			*pixel++ = (color >> i) & 0xFF;
+		/* little endian, LSB is the leftmost bit */
+		else
+			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
+		i -= 8;
+	}
 }
 
 t_point	iterate(t_point c)
@@ -69,32 +44,28 @@ t_point	iterate(t_point c)
 	return (z);
 }
 
-int	modulus(t_point z)
+int	is_in_mandelbrot(t_point point)
 {
-	return (round((sqrt((z.x * z.x) + (z.y * z.y)))));
-}
+	//double x0 = (double)point.x / WINDOW_WIDTH * 3.5 - 2.5; // Adjust the scaling and translation factors
+	//double y0 = (double)point.y / WINDOW_HEIGHT * 2.0 - 1.0; // Adjust the scaling and translation factors
 
-int is_in_mandelbrot(t_point point) {
-    //double x0 = (double)point.x / WINDOW_WIDTH * 3.5 - 2.5; // Adjust the scaling and translation factors
-    //double y0 = (double)point.y / WINDOW_HEIGHT * 2.0 - 1.0; // Adjust the scaling and translation factors
-	
-    if (modulus(iterate(point)) > 4)
+	if (modulus(iterate(point)) > 4)
 		return (1);
-    return (0); // The point is in the Mandelbrot set
+	return (0); // The point is in the Mandelbrot set
 }
 
 int	draw(t_img *img, int base_color)
 {
-	int			x;
-	int			y;
+	int	x;
+	int	y;
 
 	x = 0;
-	while (x < WINDOW_WIDTH)
+	while (x < WIN_WIDTH)
 	{
 		y = 0;
-		while (y < WINDOW_HEIGHT)
+		while (y < WIN_HEIGHT)
 		{
-			if (is_in_mandelbrot((t_point) {.x = x, .y = y}))
+			if (is_in_mandelbrot((t_point){x, y}))
 			{
 				img_pix_put(img, x, y, base_color);
 			}
@@ -102,7 +73,6 @@ int	draw(t_img *img, int base_color)
 		}
 		x++;
 	}
-    
 	return (1);
 }
 
@@ -113,23 +83,23 @@ int	main(void)
 	window = init_window();
 	if (!window)
 		return (MLX_ERROR);
-	window->img.mlx_img = mlx_new_image(window->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	window->img.mlx_img = mlx_new_image(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	window->img.addr = mlx_get_data_addr(window->img.mlx_img, &(window->img.bpp), &(window->img.line_len), &(window->img.endian));
 
 	draw(&(window->img), 0x0FFFFFF);
-    mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, window->img.mlx_img, 0, 0);
+	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, window->img.mlx_img, 0, 0);
 
-    /* Setup hooks */ 
-    mlx_loop_hook(window->mlx_ptr, &handle_no_event, window);
-    mlx_key_hook(window->win_ptr, &handle_input, window);
+	/* Setup hooks */ 
+	mlx_loop_hook(window->mlx_ptr, &handle_no_event, window);
+	mlx_key_hook(window->win_ptr, &handle_input, window);
 	mlx_hook(window->win_ptr, KeyPress, KeyPressMask, &handle_keypress, window); /* ADDED */
-    mlx_hook(window->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, window); /* CHANGED */
+	mlx_hook(window->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, window); /* CHANGED */
 
 	mlx_loop(window->mlx_ptr);
 
 	// exit and free
-    mlx_destroy_image(window->mlx_ptr, window->img.mlx_img);
-    mlx_destroy_display(window->mlx_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->img.mlx_img);
+	mlx_destroy_display(window->mlx_ptr);
 	free(window->mlx_ptr);
 	free(window);
 }
