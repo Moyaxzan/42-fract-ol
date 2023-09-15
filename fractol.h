@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/12 17:40:39 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:24:03 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # define WIN_HEIGHT 800
 # define NB_ITER 100
 # define DEGREE 2
-
+# define START_X -0.75
+# define START_Y 0.0
 # include "minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
@@ -42,8 +43,8 @@ typedef	struct s_window
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }	t_point;
 
 /*----------------init.c---------------------*/
@@ -58,6 +59,6 @@ int			handle_keyrelease(int keysym, void *window);
 /*---------------math_utils.c----------------*/
 t_point		mult_cmplx(t_point c1, t_point c2);
 t_point		add_cmplx(t_point c1, t_point c2);
-int			modulus(t_point z);
+double		modulus(t_point z);
 
 #endif

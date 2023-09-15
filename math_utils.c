@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:30:19 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/12 17:30:54 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:12:06 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_point	add_cmplx(t_point c1, t_point c2)
 	return (res);
 }
 
-int	modulus(t_point z)
+double	modulus(t_point z)
 {
-	return (round((sqrt((z.x * z.x) + (z.y * z.y)))));
+	return ((sqrt((z.x * z.x) + (z.y * z.y))));
 }
