@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/18 16:42:10 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:35:21 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define MLX_ERROR 1
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
-# define NB_ITER 100
+# define NB_ITER 700
 # define DEGREE 2
 # define START_X -0.75
 # define START_Y 0.0
@@ -62,6 +62,9 @@ t_point		add_cmplx(t_point c1, t_point c2);
 double		modulus(t_point z);
 
 /*---------------mandelbrot.c----------------*/
-int			draw_mdb(t_window *window, int base_color);
+int			draw_mdb(t_window *window, int *colors);
+
+/*------------------main.c-------------------*/
+void	img_pix_put(t_img *img, int x, int y, int color);
 
 #endif

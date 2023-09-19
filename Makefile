@@ -1,12 +1,12 @@
 NAME = fractol
 
-SRCS = main.c init.c events.c math_utils.c
+SRCS = main.c init.c events.c math_utils.c mandelbrot.c
 
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 RM_FLAGS = -f
 

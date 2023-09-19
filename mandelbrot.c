@@ -6,24 +6,11 @@
 /*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/18 16:41:57 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:38:47 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-static t_point	iterate(t_point c)
-{
-	int		i;
-	t_point	z;
-
-	i = 0;
-	z.x = 0;
-	z.y = 0;
-	while (i++ < 10)
-		z = add_cmplx(mult_cmplx(z, z), c); // Zn+1 = Zn^2 + c
-	return (z);
-}
 
 static int	is_in_mandelbrot(t_point c)
 {
@@ -33,32 +20,60 @@ static int	is_in_mandelbrot(t_point c)
     z.x = 0.0;
     z.y = 0.0;
 	i = 0;
-	while (i++ < NB_ITER)
+	while (++i < NB_ITER)
 	{
 		z = add_cmplx(mult_cmplx(z, z), c);
 		if (modulus(z) > 4)
-    		return (0); // The point is not in the Mandelbrot set   
+    		return (i); // The point is not in the Mandelbrot set   
 	}
-    return (1); // The point is likely in the Mandelbrot set
+    return (i); // The point is likely in the Mandelbrot set
 }
 
-int	draw_mdb(t_window *window, int base_color)
+int	get_color(int colors[12], int iter)
+{
+	if (iter > 9 * NB_ITER / 12)
+		return (colors[0]);
+	if (iter > 8 * NB_ITER / 12)
+		return (colors[1]);
+	if (iter > 4 * NB_ITER / 12)
+		return (colors[2]);
+	if (iter > 2.3 * NB_ITER / 12)
+		return (colors[3]);
+	if (iter > 1.5 * NB_ITER / 12)
+		return (colors[4]);
+	if (iter > 0.9 * NB_ITER / 12)
+		return (colors[5]);
+	if (iter > 0.8 * NB_ITER / 12)
+		return (colors[6]);
+	if (iter > 0.65 * NB_ITER / 12)
+		return (colors[7]);
+	if (iter > 0.2 * NB_ITER / 12)
+		return (colors[8]);
+	if (iter > 0.1 * NB_ITER / 12)
+		return (colors[9]);
+	if (iter > 0.065 * NB_ITER / 12)
+		return (colors[10]);
+	return (colors[11]);
+}
+
+int	draw_mdb(t_window *window, int colors[12])
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < WIN_WIDTH)
+	while (y < WIN_HEIGHT)
 	{
     	double p_y = (y - WIN_HEIGHT / 2.0) / (0.5 * WIN_HEIGHT) + START_Y;
 		x = 0;
-		while (x < WIN_HEIGHT)
+		while (x < WIN_WIDTH)
 		{
     		double p_x = 1.5 * (x - WIN_WIDTH / 2.0) / (0.5 * WIN_WIDTH) + START_X;
-			if (is_in_mandelbrot((t_point) {p_x, p_y}))
-			{
-				img_pix_put(&(window->img), x, y, base_color);
-			}
+			int iter = is_in_mandelbrot((t_point) {p_x, p_y});
+			if (iter == NB_ITER)
+				img_pix_put(&(window->img), x, y, 0x0);
+			else
+				img_pix_put(&(window->img), x, y, get_color(colors, iter));
 			x++;
 		}
 		y++;
