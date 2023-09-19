@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/15 17:24:03 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:42:10 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,8 @@ int			handle_keyrelease(int keysym, void *window);
 t_point		mult_cmplx(t_point c1, t_point c2);
 t_point		add_cmplx(t_point c1, t_point c2);
 double		modulus(t_point z);
+
+/*---------------mandelbrot.c----------------*/
+int			draw_mdb(t_window *window, int base_color);
 
 #endif
