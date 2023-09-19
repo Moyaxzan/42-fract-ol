@@ -6,7 +6,7 @@
 /*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 15:56:02 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 19:15:12 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static int	is_in_mandelbrot(t_point c)
 {
-    t_point	z;
+	t_point	z;
 	int		i;
 
-    z.x = 0.0;
-    z.y = 0.0;
+	z.x = 0.0;
+	z.y = 0.0;
 	i = 0;
 	while (++i < NB_ITER)
 	{
 		z = add_cmplx(mult_cmplx(z, z), c);
 		if (modulus(z) > 4)
-    		return (i); // The point is not in the Mandelbrot set   
+			return (i);
 	}
-    return (i); // The point is likely in the Mandelbrot set
+	return (i);
 }
 
 int	get_color(int colors[12], int iter)
@@ -58,26 +58,28 @@ int	get_color(int colors[12], int iter)
 
 int	draw_mdb(t_window *window, int colors[12])
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	double	p_y;
+	double	p_x;
+	int		iter;
 
-	y = 0;
-	while (y < WIN_HEIGHT)
+	y = -1;
+	while (++y < WIN_HEIGHT)
 	{
-    	double p_y = (y - WIN_HEIGHT / 2.0) / (0.5 * WIN_HEIGHT) + START_Y;
-		x = 0;
-		while (x < WIN_WIDTH)
+		p_y = (y - WIN_HEIGHT / 2.0) / (0.5 * WIN_HEIGHT) + START_Y;
+		x = -1;
+		while (++x < WIN_WIDTH)
 		{
-    		double p_x = 1.5 * (x - WIN_WIDTH / 2.0) / (0.5 * WIN_WIDTH) + START_X;
-			int iter = is_in_mandelbrot((t_point) {p_x, p_y});
+			p_x = 1.5 * (x - WIN_WIDTH / 2.0) / (0.5 * WIN_WIDTH) + START_X;
+			iter = is_in_mandelbrot((t_point){p_x, p_y});
 			if (iter == NB_ITER)
 				img_pix_put(&(window->img), x, y, 0x0);
 			else
 				img_pix_put(&(window->img), x, y, get_color(colors, iter));
-			x++;
 		}
-		y++;
 	}
-	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, window->img.mlx_img, 0, 0);
+	mlx_put_image_to_window
+		(window->mlx_ptr, window->win_ptr, window->img.mlx_img, 0, 0);
 	return (1);
 }

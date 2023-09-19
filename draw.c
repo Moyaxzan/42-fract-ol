@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:20:31 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 18:44:29 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 19:17:06 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,24 @@ static void	colors_rainbow(int colors[12])
 	colors[11] = 0x0ff0080;
 }
 
+//TODO : free on errors + change mdb check when julia added
 int	draw(t_window *window, int parsing)
 {
 	int			colors[12];
 
 	window->img.mlx_img = mlx_new_image(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	if (!window->img.mlx_img)
-		return (MLX_ERROR); //TODO : free ?
-	window->img.addr = mlx_get_data_addr(window->img.mlx_img, &(window->img.bpp), &(window->img.line_len), &(window->img.endian));
+		return (MLX_ERROR);
+	window->img.addr = mlx_get_data_addr
+		(window->img.mlx_img, &(window->img.bpp),
+			&(window->img.line_len), &(window->img.endian));
 	if (!window->img.addr)
-		return (MLX_ERROR); //TODO : free ?
+		return (MLX_ERROR);
 	if (parsing & 0b001)
 		colors_kirlian(colors);
 	else
 		colors_rainbow(colors);
-	if (!(parsing & 0b010)) // TODO : change for julia
+	if (!(parsing & 0b010))
 		draw_mdb(window, colors);
 	return (0);
 }

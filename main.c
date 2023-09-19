@@ -6,12 +6,13 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:29:33 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 18:48:30 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 19:09:25 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+//TODO : free on errors !
 int	main(int argc, char **argv)
 {
 	t_window	*window;
@@ -25,6 +26,6 @@ int	main(int argc, char **argv)
 		return (MLX_ERROR);
 	draw(window, parsing);
 	if (hook_n_loop(window))
-		return (MLX_ERROR); // TODO : free ?
+		return (MLX_ERROR);
 	return (exit_mlx(window));
 }
