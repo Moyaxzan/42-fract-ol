@@ -6,12 +6,13 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 18:03:39 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:35:12 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+// TODO : check for rainbow (split function)
 static int	check_arg(int *changed, char *arg)
 {
 	if (!ft_strncmp(arg, "mandelbrot", 11))

@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 18:14:07 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:46:17 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct s_point
 	double	y;
 }	t_point;
 
-/*----------------init.c---------------------*/
-t_window	*init_window(void);
+/*----------------draw.c---------------------*/
+int	draw(t_window *window, int parsing);
 
 /*----------------events.c-------------------*/
 int			handle_no_event(void *window);
@@ -58,13 +58,16 @@ int			handle_input(int keysym, t_window *data);
 int			handle_keypress(int keysym, t_window *window);
 int			handle_keyrelease(int keysym, void *window);
 
+/*----------------init.c---------------------*/
+t_window	*init_window(void);
+
+/*---------------mandelbrot.c----------------*/
+int			draw_mdb(t_window *window, int *colors);
+
 /*---------------math_utils.c----------------*/
 t_point		mult_cmplx(t_point c1, t_point c2);
 t_point		add_cmplx(t_point c1, t_point c2);
 double		modulus(t_point z);
-
-/*---------------mandelbrot.c----------------*/
-int			draw_mdb(t_window *window, int *colors);
 
 /*---------------mlx_utils.c-----------------*/
 void		img_pix_put(t_img *img, int x, int y, int color);
