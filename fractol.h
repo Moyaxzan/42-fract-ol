@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 13:35:21 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 18:14:07 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 # define MLX_ERROR 1
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
-# define NB_ITER 700
+# define NB_ITER 500
 # define DEGREE 2
-# define START_X -0.75
+# define START_X -0.5
 # define START_Y 0.0
 # include "minilibx-linux/mlx.h"
+# include "libft/libft.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdlib.h>
 # include <math.h>
+# include <unistd.h>
 
 typedef struct s_img
 {
@@ -64,7 +66,12 @@ double		modulus(t_point z);
 /*---------------mandelbrot.c----------------*/
 int			draw_mdb(t_window *window, int *colors);
 
-/*------------------main.c-------------------*/
-void	img_pix_put(t_img *img, int x, int y, int color);
+/*---------------mlx_utils.c-----------------*/
+void		img_pix_put(t_img *img, int x, int y, int color);
+
+/*-----------------parsing.c------------------*/
+int			parse(int argc, char **argv);
+int			exit_mlx(t_window *window);
+int			hook_n_loop(t_window *window);
 
 #endif
