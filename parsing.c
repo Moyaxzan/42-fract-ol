@@ -6,13 +6,31 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 18:35:12 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/19 19:05:42 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-// TODO : check for rainbow (split function)
+static int	check_color(int *changed, char *arg)
+{
+	if (!ft_strncmp(arg, "kirlian", 8))
+	{
+		if (*changed & 0b001)
+			return (0b100);
+		*changed = *changed | 0b001;
+		return (0b001);
+	}
+	if (!ft_strncmp(arg, "rainbow", 8))
+	{
+		if (*changed & 0b001)
+			return (0b100);
+		*changed = *changed | 0b001;
+		return (0b000);
+	}
+	return (0b100);
+}
+
 static int	check_arg(int *changed, char *arg)
 {
 	if (!ft_strncmp(arg, "mandelbrot", 11))
@@ -30,20 +48,14 @@ static int	check_arg(int *changed, char *arg)
 		*changed = *changed | 0b010;
 		return (0b010);
 	}
-	if (!ft_strncmp(arg, "kirlian", 8))
-	{
-		if (*changed & 0b001)
-			return (0b100);
-		*changed = *changed | 0b001;
-		return (0b001);
-	}
-	return (0b100);
+	return (check_color(changed, arg));
 }
 
 // return value :
 // 1st bit : 0 = ok / 1 = Error
 // 2nd bit : 0 = mandelbrot / 1 = julia
 // 3rd bit : 0 = basic / 1 = kirlian
+//TODO : check if things didn't changed but should have
 int	parse(int argc, char **argv)
 {
 	int	ret_value;
@@ -57,6 +69,7 @@ int	parse(int argc, char **argv)
 		return (0b100);
 	while (i < argc && !(ret_value & 0b100))
 		ret_value = ret_value | check_arg(&changed, argv[i++]);
-	//check if things didn't changed but should have
+	if (!(changed & 0b010))
+		return (0b100);
 	return (ret_value);
 }
