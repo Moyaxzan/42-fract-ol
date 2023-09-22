@@ -6,7 +6,7 @@
 /*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/22 13:48:05 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:23:29 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	draw_mdb(t_window *window, int colors[12], float coefs[11])
 	int		y;
 	double	p_y;
 	double	p_x;
-	float	iter;
+	float	i;
 
 	y = -1;
 	while (++y < WIN_HEIGHT)
@@ -73,11 +73,11 @@ int	draw_mdb(t_window *window, int colors[12], float coefs[11])
 		while (++x < WIN_WIDTH)
 		{
 			p_x = 1.5 * (x - WIN_WIDTH / 2.0) / (0.5 * WIN_WIDTH) + START_X;
-			iter = is_in_mandelbrot((t_point){p_x, p_y});
-			if (iter == NB_ITER)
+			i = is_in_mandelbrot((t_point){p_x, p_y});
+			if (i == NB_ITER)
 				img_pix_put(&(window->img), x, y, 0x0000000);
 			else
-				img_pix_put(&(window->img), x, y, get_color(colors, coefs, iter));
+				img_pix_put(&(window->img), x, y, get_color(colors, coefs, i));
 		}
 	}
 	mlx_put_image_to_window
