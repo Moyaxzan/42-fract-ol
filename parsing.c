@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 19:05:42 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/22 11:35:23 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	check_arg(int *changed, char *arg)
 {
 	if (!ft_strncmp(arg, "mandelbrot", 11))
 	{
-		write(1, "ooo", 3);
 		if (*changed & 0b010)
 			return (0b100);
 		*changed = *changed | 0b010;
