@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 18:46:17 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:31:00 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define MLX_ERROR 1
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
-# define NB_ITER 500
+# define NB_ITER 200
 # define DEGREE 2
 # define START_X -0.5
 # define START_Y 0.0
@@ -50,7 +50,7 @@ typedef struct s_point
 }	t_point;
 
 /*----------------draw.c---------------------*/
-int	draw(t_window *window, int parsing);
+int			draw(t_window *window, int parsing);
 
 /*----------------events.c-------------------*/
 int			handle_no_event(void *window);
@@ -62,7 +62,7 @@ int			handle_keyrelease(int keysym, void *window);
 t_window	*init_window(void);
 
 /*---------------mandelbrot.c----------------*/
-int			draw_mdb(t_window *window, int *colors);
+int			draw_mdb(t_window *window, int *colors, float coefs[11]);
 
 /*---------------math_utils.c----------------*/
 t_point		mult_cmplx(t_point c1, t_point c2);

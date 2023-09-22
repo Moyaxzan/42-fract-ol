@@ -6,22 +6,23 @@
 /*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/19 19:15:12 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:48:05 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int	is_in_mandelbrot(t_point c)
+static float	is_in_mandelbrot(t_point c)
 {
 	t_point	z;
-	int		i;
+	float	i;
 
 	z.x = 0.0;
 	z.y = 0.0;
 	i = 0;
-	while (++i < NB_ITER)
+	while (i < NB_ITER)
 	{
+		i = i + 1.0;
 		z = add_cmplx(mult_cmplx(z, z), c);
 		if (modulus(z) > 4)
 			return (i);
@@ -29,40 +30,40 @@ static int	is_in_mandelbrot(t_point c)
 	return (i);
 }
 
-int	get_color(int colors[12], int iter)
+int	get_color(int colors[12], float coefs[11], float iter)
 {
-	if (iter > 9 * NB_ITER / 12)
+	if (iter > coefs[0] * NB_ITER / 12)
 		return (colors[0]);
-	if (iter > 8 * NB_ITER / 12)
+	if (iter > coefs[1] * NB_ITER / 12)
 		return (colors[1]);
-	if (iter > 4 * NB_ITER / 12)
+	if (iter > coefs[2] * NB_ITER / 12)
 		return (colors[2]);
-	if (iter > 2.3 * NB_ITER / 12)
+	if (iter > coefs[3] * NB_ITER / 12)
 		return (colors[3]);
-	if (iter > 1.5 * NB_ITER / 12)
+	if (iter > coefs[4] * NB_ITER / 12)
 		return (colors[4]);
-	if (iter > 0.9 * NB_ITER / 12)
+	if (iter > coefs[5] * NB_ITER / 12)
 		return (colors[5]);
-	if (iter > 0.8 * NB_ITER / 12)
+	if (iter > coefs[6] * NB_ITER / 12)
 		return (colors[6]);
-	if (iter > 0.65 * NB_ITER / 12)
+	if (iter > coefs[7] * NB_ITER / 12)
 		return (colors[7]);
-	if (iter > 0.2 * NB_ITER / 12)
+	if (iter > coefs[8] * NB_ITER / 12)
 		return (colors[8]);
-	if (iter > 0.1 * NB_ITER / 12)
+	if (iter > coefs[9] * NB_ITER / 12)
 		return (colors[9]);
-	if (iter > 0.065 * NB_ITER / 12)
+	if (iter > coefs[10] * NB_ITER / 12)
 		return (colors[10]);
 	return (colors[11]);
 }
 
-int	draw_mdb(t_window *window, int colors[12])
+int	draw_mdb(t_window *window, int colors[12], float coefs[11])
 {
 	int		x;
 	int		y;
 	double	p_y;
 	double	p_x;
-	int		iter;
+	float	iter;
 
 	y = -1;
 	while (++y < WIN_HEIGHT)
@@ -74,9 +75,9 @@ int	draw_mdb(t_window *window, int colors[12])
 			p_x = 1.5 * (x - WIN_WIDTH / 2.0) / (0.5 * WIN_WIDTH) + START_X;
 			iter = is_in_mandelbrot((t_point){p_x, p_y});
 			if (iter == NB_ITER)
-				img_pix_put(&(window->img), x, y, 0x0);
+				img_pix_put(&(window->img), x, y, 0x0000000);
 			else
-				img_pix_put(&(window->img), x, y, get_color(colors, iter));
+				img_pix_put(&(window->img), x, y, get_color(colors, coefs, iter));
 		}
 	}
 	mlx_put_image_to_window
