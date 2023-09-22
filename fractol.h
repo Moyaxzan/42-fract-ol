@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/22 13:31:00 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/22 17:30:07 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef	struct s_window
 	void	*mlx_ptr;
 	t_img	img;
 	void	*win_ptr;
+	int		parsing;
 }	t_window;
 
 typedef struct s_point
@@ -49,20 +50,24 @@ typedef struct s_point
 	double	y;
 }	t_point;
 
+/*----------------colors.c--------------------*/
+void	colors_rainbow(int colors[12], float coefs[11]);
+void	coefs_rainbow(float coefs[12]);
+void	colors_kirlian(int colors[12], float coefs[11]);
+void	coefs_kirlian(float coefs[12]);
+
 /*----------------draw.c---------------------*/
-int			draw(t_window *window, int parsing);
+int			draw(t_window *window);
 
 /*----------------events.c-------------------*/
-int			handle_no_event(void *window);
 int			handle_input(int keysym, t_window *data);
-int			handle_keypress(int keysym, t_window *window);
-int			handle_keyrelease(int keysym, void *window);
+int			handle_scroll(int keysym, t_window *window);
 
 /*----------------init.c---------------------*/
 t_window	*init_window(void);
 
 /*---------------mandelbrot.c----------------*/
-int			draw_mdb(t_window *window, int *colors, float coefs[11]);
+int			draw_mdb(t_window *window, int *colors, float coefs[11], float zoom);
 
 /*---------------math_utils.c----------------*/
 t_point		mult_cmplx(t_point c1, t_point c2);
@@ -76,5 +81,8 @@ void		img_pix_put(t_img *img, int x, int y, int color);
 int			parse(int argc, char **argv);
 int			exit_mlx(t_window *window);
 int			hook_n_loop(t_window *window);
+
+/*------------------zoom.c-------------------*/
+float		get_zoom(float add);
 
 #endif

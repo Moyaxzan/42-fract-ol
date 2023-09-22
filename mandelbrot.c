@@ -6,7 +6,7 @@
 /*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/22 14:23:29 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:33:26 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static float	is_in_mandelbrot(t_point c)
 	return (i);
 }
 
-int	get_color(int colors[12], float coefs[11], float iter)
+static int	get_color(int colors[12], float coefs[11], float iter)
 {
 	if (iter > coefs[0] * NB_ITER / 12)
 		return (colors[0]);
@@ -57,7 +57,7 @@ int	get_color(int colors[12], float coefs[11], float iter)
 	return (colors[11]);
 }
 
-int	draw_mdb(t_window *window, int colors[12], float coefs[11])
+int	draw_mdb(t_window *window, int colors[12], float coefs[11], float zoom)
 {
 	int		x;
 	int		y;
@@ -68,11 +68,11 @@ int	draw_mdb(t_window *window, int colors[12], float coefs[11])
 	y = -1;
 	while (++y < WIN_HEIGHT)
 	{
-		p_y = (y - WIN_HEIGHT / 2.0) / (0.5 * WIN_HEIGHT) + START_Y;
+		p_y = (y - WIN_HEIGHT / 2.0) / (0.5 * zoom * WIN_HEIGHT) + START_Y;
 		x = -1;
 		while (++x < WIN_WIDTH)
 		{
-			p_x = 1.5 * (x - WIN_WIDTH / 2.0) / (0.5 * WIN_WIDTH) + START_X;
+			p_x = 1.5 * (x - WIN_WIDTH / 2.0) / (0.5 * zoom * WIN_WIDTH) + START_X;
 			i = is_in_mandelbrot((t_point){p_x, p_y});
 			if (i == NB_ITER)
 				img_pix_put(&(window->img), x, y, 0x0000000);

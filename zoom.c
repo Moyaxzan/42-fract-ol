@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   zoom.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 12:29:33 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/22 17:04:50 by tsaint-p         ###   ########.fr       */
+/*   Created: 2023/09/22 15:29:43 by tsaint-p          #+#    #+#             */
+/*   Updated: 2023/09/22 15:36:04 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-//TODO : free on errors !
-int	main(int argc, char **argv)
+float	get_zoom(float add)
 {
-	t_window	*window;
-	int			parsing;
+	static float	zoom = 1;
 
-	parsing = parse(argc, argv);
-	if (parsing & 0b100)
-		return (write(1, "Error : invalid arguments\n", 27));
-	window = init_window();
-	if (!window)
-		return (MLX_ERROR);
-	window->parsing = parsing;
-	draw(window);
-	if (hook_n_loop(window))
-		return (MLX_ERROR);
-	return (exit_mlx(window));
+	zoom += add;
+	return (zoom);
 }
