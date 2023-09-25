@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:06:30 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/25 11:53:38 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:13:46 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int	exit_mlx(t_window *window)
 int	hook_n_loop(t_window *window)
 {
 	mlx_key_hook(window->win_ptr, &handle_input, window);
-	mlx_hook(window->win_ptr, ButtonPress, ButtonPressMask,
-		&handle_scroll, window);
+	mlx_mouse_hook(window->win_ptr, mouse_events, window);
 	mlx_hook(window->win_ptr, DestroyNotify, StructureNotifyMask,
 		exit_mlx, window);
 	mlx_loop(window->mlx_ptr);

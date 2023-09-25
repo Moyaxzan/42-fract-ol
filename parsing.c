@@ -6,69 +6,47 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/25 10:55:35 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:48:40 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int	check_color(int *changed, char *arg)
+void	get_set(char *str, t_window *window)
 {
-	if (!ft_strncmp(arg, "kirlian", 8))
-	{
-		if (*changed & 0b001)
-			return (0b100);
-		*changed = *changed | 0b001;
-		return (0b001);
-	}
-	if (!ft_strncmp(arg, "rainbow", 8))
-	{
-		if (*changed & 0b001)
-			return (0b100);
-		*changed = *changed | 0b001;
-		return (0b000);
-	}
-	return (0b100);
+	if (ft_strncmp(str, "bonus", 6) || ft_strncmp(str, "b", 2))
+		window->set = BONUS_F;
+	else if (ft_strncmp(str, "julia", 6) || ft_strncmp(str, "j", 2))
+		window->set = JULIA;
+	else if (ft_strncmp(str, "mandelbrot", 6) || ft_strncmp(str, "m", 2))
+		window->set = MANDELBROT;
+	return ;
 }
 
-static int	check_arg(int *changed, char *arg)
+//TODO : improve this ? 
+void	get_julia(char *real, char *im, t_window *window)
 {
-	if (!ft_strncmp(arg, "mandelbrot", 11))
-	{
-		if (*changed & 0b010)
-			return (0b100);
-		*changed = *changed | 0b010;
-		return (0b000);
-	}
-	if (!ft_strncmp(arg, "julia", 6))
-	{
-		if (*changed & 0b010)
-			return (0b100);
-		*changed = *changed | 0b010;
-		return (0b010);
-	}
-	return (check_color(changed, arg));
+	window->julia_cmplx = malloc(sizeof(t_point));
+	window->julia_cmplx->x = ft_atoi(real);
+	window->julia_cmplx->y = ft_atoi(im);
 }
 
-// return value :
-// 2^2 bit : 0 = ok / 1 = Error
-// 2^1 bit : 0 = mandelbrot / 1 = julia
-// 2^0 bit : 0 = basic / 1 = kirlian
-//TODO : check if things didn't changed but should have
-int	parse(int argc, char **argv)
+int	parse(int argc, char **argv, t_window *window)
 {
-	int	ret_value;
-	int	changed;
 	int	i;
 
 	i = 1;
-	ret_value = 0b000;
-	changed = 0b000;
 	if (argc < 2)
-		return (0b100);
-	while (i < argc && !(ret_value & 0b100))
-		ret_value = ret_value | check_arg(&changed, argv[i++]);
-	if (!(changed & 0b010))
-		return (0b100);
-	return (ret_value);
+		return (-1); //TODO help message
+	get_set(argv[i++], window);
+	if (!window->set || (window->set != JULIA && argc > 3)
+		|| (window->set == JULIA && argc > 5))
+		return (write(2, "error\n", 6));	//TODO: better help mssg
+	if (window->set == JULIA)
+	{
+		get_julia(argv[i], argv[i + 1], window);
+		i = 4;
+	}
+	// TODO : get color
+	return (0);
 }

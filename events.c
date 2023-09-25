@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:50:08 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/25 11:53:26 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:50:34 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_input(int keysym, t_window *window)
 	return (0);
 }
 
-int	handle_scroll(int keysym, t_window *window)
+int	mouse_events(int keysym, int x, int y, void *window)
 {
 	if (keysym == Button4)
 	{

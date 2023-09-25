@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:20:31 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/25 10:13:40 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:15:58 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,7 @@ int	draw(t_window *window)
 	int			colors[12];
 	float		coefs[11];
 
-	window->img.mlx_img = mlx_new_image(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	if (!window->img.mlx_img)
-		return (MLX_ERROR);
-	window->img.addr = mlx_get_data_addr
-		(window->img.mlx_img, &(window->img.bpp),
-			&(window->img.line_len), &(window->img.endian));
-	if (!window->img.addr)
-		return (MLX_ERROR);
+	mlx_clear_window(window->mlx_ptr, window->win_ptr);
 	if (window->parsing & 0b001)
 		colors_kirlian(colors, coefs);
 	else
