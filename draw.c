@@ -6,18 +6,17 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:20:31 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/22 17:31:46 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:13:40 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-//TODO : free on errors + change mdb check when julia added + make parsing in draw !
+//TODO : free on errors + change mdb check when julia added
 int	draw(t_window *window)
 {
 	int			colors[12];
 	float		coefs[11];
-	//static int	parsing;
 
 	window->img.mlx_img = mlx_new_image(window->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	if (!window->img.mlx_img)

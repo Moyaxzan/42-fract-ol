@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 17:27:12 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/22 17:28:08 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:13:03 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,3 @@ void	colors_rainbow(int colors[12], float coefs[11])
 	colors[10] = 0x0ff0080;
 	coefs_rainbow(coefs);
 }
-
-

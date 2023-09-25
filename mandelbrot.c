@@ -6,7 +6,7 @@
 /*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/22 15:33:26 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:14:28 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ int	draw_mdb(t_window *window, int colors[12], float coefs[11], float zoom)
 		x = -1;
 		while (++x < WIN_WIDTH)
 		{
-			p_x = 1.5 * (x - WIN_WIDTH / 2.0) / (0.5 * zoom * WIN_WIDTH) + START_X;
+			p_x = 1.5 * (x - WIN_WIDTH / 2.0)
+				/ (0.5 * zoom * WIN_WIDTH) + START_X;
 			i = is_in_mandelbrot((t_point){p_x, p_y});
 			if (i == NB_ITER)
 				img_pix_put(&(window->img), x, y, 0x0000000);
