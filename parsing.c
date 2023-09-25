@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/22 11:35:23 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:55:35 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static int	check_arg(int *changed, char *arg)
 }
 
 // return value :
-// 1st bit : 0 = ok / 1 = Error
-// 2nd bit : 0 = mandelbrot / 1 = julia
-// 3rd bit : 0 = basic / 1 = kirlian
+// 2^2 bit : 0 = ok / 1 = Error
+// 2^1 bit : 0 = mandelbrot / 1 = julia
+// 2^0 bit : 0 = basic / 1 = kirlian
 //TODO : check if things didn't changed but should have
 int	parse(int argc, char **argv)
 {

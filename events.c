@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:50:08 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/25 10:32:06 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 11:53:26 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	handle_no_event(void *window)
 int	handle_input(int keysym, t_window *window)
 {
 	if (keysym == XK_Escape)
-	{
 		exit_mlx(window);
-		exit(0);
-	}
 	return (0);
 }
 
