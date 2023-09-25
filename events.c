@@ -6,11 +6,12 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:50:08 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/22 17:39:14 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:32:06 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "minilibx-linux/mlx.h"
 
 int	handle_no_event(void *window)
 {
@@ -20,10 +21,13 @@ int	handle_no_event(void *window)
 }
 
 //TODO: exit better than this
-int	handle_input(int keysym, t_window *data)
+int	handle_input(int keysym, t_window *window)
 {
 	if (keysym == XK_Escape)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	{
+		exit_mlx(window);
+		exit(0);
+	}
 	return (0);
 }
 

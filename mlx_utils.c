@@ -6,11 +6,12 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:06:30 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/25 10:15:18 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/25 10:33:52 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "minilibx-linux/mlx.h"
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {
@@ -34,6 +35,7 @@ int	exit_mlx(t_window *window)
 	if (!window)
 		return (1);
 	mlx_destroy_image(window->mlx_ptr, window->img.mlx_img);
+	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
 	mlx_destroy_display(window->mlx_ptr);
 	free(window->mlx_ptr);
 	free(window);
