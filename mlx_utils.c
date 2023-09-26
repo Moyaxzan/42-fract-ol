@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:06:30 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/25 16:13:46 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:25:19 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,12 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
-int	exit_mlx(t_window *window)
-{
-	if (!window)
-		return (1);
-	mlx_destroy_image(window->mlx_ptr, window->img.mlx_img);
-	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
-	mlx_destroy_display(window->mlx_ptr);
-	free(window->mlx_ptr);
-	free(window);
-	exit(0);
-}
-
 int	hook_n_loop(t_window *window)
 {
 	mlx_key_hook(window->win_ptr, &handle_input, window);
 	mlx_mouse_hook(window->win_ptr, mouse_events, window);
-	mlx_hook(window->win_ptr, DestroyNotify, StructureNotifyMask,
-		exit_mlx, window);
+	//mlx_hook(window->win_ptr, DestroyNotify, StructureNotifyMask,
+		//exit_mlx, window);
 	mlx_loop(window->mlx_ptr);
 	return (0);
 }
