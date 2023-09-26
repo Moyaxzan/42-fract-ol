@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   newton.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 19:13:37 by tsaint-p         ###   ########.fr       */
+/*   Created: 2023/09/26 18:30:07 by tsaint-p          #+#    #+#             */
+/*   Updated: 2023/09/26 19:58:17 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static float	is_in_mandelbrot(t_point c)
+static float	is_in_newton(t_point c)
 {
 	t_point	z;
 	float	i;
+	t_point	attractor;
 
+	attractor = (t_point){-0.25, -0.25};
 	z.x = 0.0;
 	z.y = 0.0;
 	i = 0;
 	while (i < NB_ITER)
 	{
 		i = i + 1.0;
-		z = add_cmplx(mult_cmplx(z, z), c);
-		if (modulus(z) > 4)
+		t_point temp = ft_cosh(c);
+		c = divide_cmplx(add_cmplx(mult_cmplx(c, ft_sinh(c)),
+			(t_point){-temp.x + 1, -temp.y}), ft_sinh(c));
+		if (modulus((t_point){c.x - attractor.x, c.y - attractor.y}) > 0.1)
 			return (i);
 	}
 	return (i);
@@ -57,7 +61,7 @@ static int	get_color(int colors[12], float coefs[11], float iter)
 	return (colors[11]);
 }
 
-int	draw_mdb(t_window *window, int colors[12], float coefs[11], float zoom)
+int	draw_newton(t_window *window, int colors[12], float coefs[11], float zoom)
 {
 	int		x;
 	int		y;
@@ -73,8 +77,8 @@ int	draw_mdb(t_window *window, int colors[12], float coefs[11], float zoom)
 		while (++x < WIN_WIDTH)
 		{
 			p_x = 1.5 * (x - WIN_WIDTH / 2.0)
-				/ (0.5 * zoom * WIN_WIDTH) + START_X - 0.67;
-			i = is_in_mandelbrot((t_point){p_x, p_y});
+				/ (0.5 * zoom * WIN_WIDTH) + START_X;
+			i = is_in_newton((t_point){p_x, p_y});
 			if (i == NB_ITER)
 				img_pix_put(&(window->img), x, y, 0x0000000);
 			else

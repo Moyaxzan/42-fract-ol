@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mandelbrot.c                                       :+:      :+:    :+:   */
+/*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 19:13:37 by tsaint-p         ###   ########.fr       */
+/*   Created: 2023/09/26 14:20:40 by tsaint-p          #+#    #+#             */
+/*   Updated: 2023/09/26 18:30:59 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdio.h>
 
-static float	is_in_mandelbrot(t_point c)
+static float	is_in_julia(t_point c, t_point *start)
 {
 	t_point	z;
 	float	i;
 
-	z.x = 0.0;
-	z.y = 0.0;
+	z.x = start->x;
+	z.y = start->y;
+	printf("x = %f, y = %f\n", z.x, z.y);
 	i = 0;
 	while (i < NB_ITER)
 	{
 		i = i + 1.0;
-		z = add_cmplx(mult_cmplx(z, z), c);
-		if (modulus(z) > 4)
+		c = add_cmplx(mult_cmplx(c, c), z);
+		if (modulus(c) > 4)
 			return (i);
 	}
 	return (i);
@@ -57,7 +59,7 @@ static int	get_color(int colors[12], float coefs[11], float iter)
 	return (colors[11]);
 }
 
-int	draw_mdb(t_window *window, int colors[12], float coefs[11], float zoom)
+int	draw_julia(t_window *window, int colors[12], float coefs[11], float zoom)
 {
 	int		x;
 	int		y;
@@ -73,8 +75,8 @@ int	draw_mdb(t_window *window, int colors[12], float coefs[11], float zoom)
 		while (++x < WIN_WIDTH)
 		{
 			p_x = 1.5 * (x - WIN_WIDTH / 2.0)
-				/ (0.5 * zoom * WIN_WIDTH) + START_X - 0.67;
-			i = is_in_mandelbrot((t_point){p_x, p_y});
+				/ (0.5 * zoom * WIN_WIDTH) + START_X;
+			i = is_in_julia((t_point){p_x, p_y}, window->julia_cmplx);
 			if (i == NB_ITER)
 				img_pix_put(&(window->img), x, y, 0x0000000);
 			else

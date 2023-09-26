@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 13:04:00 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/26 19:05:59 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	get_set(char *str, t_window *window)
 {
-	if (!ft_strncmp(str, "bonus", 6) || !ft_strncmp(str, "b", 2))
-		window->set = BONUS_F;
+	if (!ft_strncmp(str, "newton", 6) || !ft_strncmp(str, "n", 2))
+		window->set = NEWTON;
 	else if (!ft_strncmp(str, "julia", 6) || !ft_strncmp(str, "j", 2))
 		window->set = JULIA;
 	else if (!ft_strncmp(str, "mandelbrot", 11) || !ft_strncmp(str, "m", 2))
@@ -26,12 +26,12 @@ void	get_set(char *str, t_window *window)
 //TODO : improve this ? 
 int	get_julia(char *real, char *im, t_window *window)
 {
-	window->julia_cmplx = malloc(sizeof(t_point));
-	if ((real && !ft_isdigit(*real)) || (im && !ft_isdigit(*im)))
+	if ((real && !ft_isdigit(*real) && !ft_issign(*real))
+		|| (im && !ft_isdigit(*im) && !ft_issign(*im)))
 		return (-1);
 	window->julia_cmplx->x = ft_atof(real);
 	window->julia_cmplx->y = ft_atof(im);
-	if (!window->julia_cmplx->y && !window->julia_cmplx->x)
+	if (window->julia_cmplx->y == 0.00f && window->julia_cmplx->x == 0.00f)
 		return (-1);
 	return (0);
 }

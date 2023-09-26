@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 12:32:18 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/26 19:10:28 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,18 @@
 # define MLX_ERROR 1
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
-# define NB_ITER 200
+# define NB_ITER 100
 # define DEGREE 2
-# define START_X -0.5
+# define START_X 0.0
 # define START_Y 0.0
-# define BONUS_F 3
+# define NEWTON 3
 # define JULIA 2
 # define MANDELBROT 1
 # define RAINBOW 6767
 # define KIRLIAN 2021
+# define W_RED "\e[1;31m" 
+# define W_BLUE "\e[0;36m" 
+# define W_RESET "\e[0;0m" 
 # include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
 # include <X11/keysym.h>
@@ -81,6 +84,9 @@ int			clean_exit(int exit_code, t_window *window);
 int			init_mlx(t_window *window);
 t_window	*init_window(void);
 
+/*----------------julia.c--------------------*/
+int			draw_julia(t_window *window, int colors[12], float coefs[11], float zoom);
+
 /*---------------mandelbrot.c----------------*/
 int			draw_mdb(t_window *window, int *colors, float coefs[11], float zoom);
 
@@ -88,14 +94,23 @@ int			draw_mdb(t_window *window, int *colors, float coefs[11], float zoom);
 t_point		mult_cmplx(t_point c1, t_point c2);
 t_point		add_cmplx(t_point c1, t_point c2);
 double		modulus(t_point z);
-double		ft_atof(const char *str); //TODO : test it
+t_point		ft_cosh(t_point z);
+t_point		ft_sinh(t_point z);
 
 /*---------------mlx_utils.c-----------------*/
 void		img_pix_put(t_img *img, int x, int y, int color);
 int			hook_n_loop(t_window *window);
 
+/*----------------newton.c-------------------*/
+int	draw_newton(t_window *window, int colors[12], float coefs[11], float zoom);
+
 /*-----------------parsing.c------------------*/
 int			parse(int argc, char **argv, t_window *window);
+
+/*-----------------utils.c-------------------*/
+int			ft_issign(int c);
+double		ft_atof(const char *str); //TODO : test it
+t_point		divide_cmplx(t_point num, t_point deno);
 
 /*------------------zoom.c-------------------*/
 float		get_zoom(float add);

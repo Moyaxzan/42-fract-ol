@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:20:31 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 12:55:00 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:27:56 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ int	draw(t_window *window)
 		colors_rainbow(colors, coefs);
 	if (window->set == MANDELBROT)
 		draw_mdb(window, colors, coefs, get_zoom(0));
+	else if (window->set == JULIA)
+		draw_julia(window, colors, coefs, get_zoom(0));
+	else if (window->set == NEWTON)
+		draw_newton(window, colors, coefs, get_zoom(0));
 	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr,
 		window->img.mlx_img, 0, 0);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:30:19 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 13:11:56 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:40:20 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,20 @@ double	modulus(t_point z)
 	return ((sqrt((z.x * z.x) + (z.y * z.y))));
 }
 
-static size_t	size_num(const char *str)
+t_point	ft_cosh(t_point z)
 {
-	size_t	i;
+	t_point	res;
 
-	i = 0;
-	while (str && *str && ft_isdigit(*str))
-	{
-		str++;
-		i++;
-	}
-	return (i);
+	res.x = cosh(z.x) * cos(z.y);
+	res.y = sinh(z.x) * sin(z.y);
+	return (res);
 }
 
-double	ft_atof(const char *str)
+t_point	ft_sinh(t_point z)
 {
-	double	int_part;
-	double	dec_part;
-	size_t	len;
+	t_point	res;
 
-	int_part = (double) ft_atoi(str);
-	while (str && ft_isdigit(*str) && *str != '.')
-		str++;
-	if (*str == '.')
-		str++;
-	dec_part = (double) ft_atoi(str);
-	len = size_num(str);
-	while (len--)
-		dec_part /= 10;
-	return (int_part + dec_part);
+	res.x = sinh(z.x) * cos(z.y);
+	res.y = cosh(z.x) * sin(z.y);
+	return (res);
 }
