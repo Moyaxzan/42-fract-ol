@@ -6,69 +6,75 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/25 10:55:35 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/26 13:04:00 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static int	check_color(int *changed, char *arg)
+void	get_set(char *str, t_window *window)
 {
-	if (!ft_strncmp(arg, "kirlian", 8))
-	{
-		if (*changed & 0b001)
-			return (0b100);
-		*changed = *changed | 0b001;
-		return (0b001);
-	}
-	if (!ft_strncmp(arg, "rainbow", 8))
-	{
-		if (*changed & 0b001)
-			return (0b100);
-		*changed = *changed | 0b001;
-		return (0b000);
-	}
-	return (0b100);
+	if (!ft_strncmp(str, "bonus", 6) || !ft_strncmp(str, "b", 2))
+		window->set = BONUS_F;
+	else if (!ft_strncmp(str, "julia", 6) || !ft_strncmp(str, "j", 2))
+		window->set = JULIA;
+	else if (!ft_strncmp(str, "mandelbrot", 11) || !ft_strncmp(str, "m", 2))
+		window->set = MANDELBROT;
+	return ;
 }
 
-static int	check_arg(int *changed, char *arg)
+//TODO : improve this ? 
+int	get_julia(char *real, char *im, t_window *window)
 {
-	if (!ft_strncmp(arg, "mandelbrot", 11))
-	{
-		if (*changed & 0b010)
-			return (0b100);
-		*changed = *changed | 0b010;
-		return (0b000);
-	}
-	if (!ft_strncmp(arg, "julia", 6))
-	{
-		if (*changed & 0b010)
-			return (0b100);
-		*changed = *changed | 0b010;
-		return (0b010);
-	}
-	return (check_color(changed, arg));
+	window->julia_cmplx = malloc(sizeof(t_point));
+	if ((real && !ft_isdigit(*real)) || (im && !ft_isdigit(*im)))
+		return (-1);
+	window->julia_cmplx->x = ft_atof(real);
+	window->julia_cmplx->y = ft_atof(im);
+	if (!window->julia_cmplx->y && !window->julia_cmplx->x)
+		return (-1);
+	return (0);
 }
 
-// return value :
-// 2^2 bit : 0 = ok / 1 = Error
-// 2^1 bit : 0 = mandelbrot / 1 = julia
-// 2^0 bit : 0 = basic / 1 = kirlian
-//TODO : check if things didn't changed but should have
-int	parse(int argc, char **argv)
+int	get_color(char *str, t_window *window)
 {
-	int	ret_value;
-	int	changed;
+	if (!ft_strncmp(str, "kirlian", 8))
+		window->color = KIRLIAN;
+	else if (!ft_strncmp(str, "rainbow", 8))
+		window->color = RAINBOW;
+	return (window->color);
+}
+
+void	parse_julia(t_window *window, int *i, int argc, char **argv)
+{
+	window->julia_cmplx = malloc(sizeof(t_point));
+	if (!window->julia_cmplx)
+		clean_exit(errnl("error on malloc", 666), window);
+	if (argc < 4)
+		*(window->julia_cmplx) = (t_point){0.2, 0.7667};
+	else if (get_julia(argv[*i], argv[*i + 1], window) == -1)
+		clean_exit(errnl("Wrong Julia arguments", 1), window);
+	else
+		*i = 4;
+}
+
+int	parse(int argc, char **argv, t_window *window)
+{
 	int	i;
 
 	i = 1;
-	ret_value = 0b000;
-	changed = 0b000;
-	if (argc < 2)
-		return (0b100);
-	while (i < argc && !(ret_value & 0b100))
-		ret_value = ret_value | check_arg(&changed, argv[i++]);
-	if (!(changed & 0b010))
-		return (0b100);
-	return (ret_value);
+	get_set(argv[i++], window);
+	if (!window->set || (window->set != JULIA && argc > 3)
+		|| (window->set == JULIA && argc > 5))
+		return (clean_exit(errnl("invalid arguments", 1), window));
+	if (window->set == JULIA)
+		parse_julia(window, &i, argc, argv);
+	if (i < argc)
+	{
+		if (!get_color(argv[i], window))
+			return (clean_exit(errnl("Wrong color set", 420), window));
+	}
+	else
+		window->color = KIRLIAN;
+	return (0);
 }
