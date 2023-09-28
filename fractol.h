@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 21:49:05 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/28 22:44:46 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int			draw_mdb(t_window *window);
 t_point		mult_cmplx(t_point c1, t_point c2);
 t_point		add_cmplx(t_point c1, t_point c2);
 double		modulus(t_point z);
-t_point		ft_cosh(t_point z);
-t_point		ft_sinh(t_point z);
+t_point		ft_cos(t_point z);
+t_point		ft_sin(t_point z);
 
 /*---------------mlx_utils.c-----------------*/
 void		img_pix_put(t_img *img, int x, int y, int color);
