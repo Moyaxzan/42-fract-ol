@@ -6,13 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:50:08 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/15 13:11:45 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/26 12:48:28 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "minilibx-linux/mlx.h"
-#include <stdio.h>
 
 int	handle_no_event(void *window)
 {
@@ -21,25 +19,27 @@ int	handle_no_event(void *window)
 	return (0);
 }
 
-int	handle_input(int keysym, t_window *data)
+//TODO: exit better than this
+int	handle_input(int keysym, t_window *window)
 {
 	if (keysym == XK_Escape)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		clean_exit(0, window);
 	return (0);
 }
 
-int	handle_keypress(int keysym, t_window *window)
+int	mouse_events(int keysym, int x, int y, void *window)
 {
-	if (keysym == XK_Escape)
-		mlx_destroy_window(window->mlx_ptr, window->win_ptr);
-	printf("Keypress: %d\n", keysym);
-	return (0);
-}
-
-int	handle_keyrelease(int keysym, void *window)
-{
-	if (!window)
-		return (1);
-	printf("Keyrelease: %d\n", keysym);
+	if (!x && !y)
+		return (0);
+	if (keysym == Button4)
+	{
+		get_zoom(0.1);
+		draw(window);
+	}
+	else if (keysym == Button5)
+	{
+		get_zoom(-0.1);
+		draw(window);
+	}
 	return (0);
 }
