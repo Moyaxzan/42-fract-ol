@@ -6,12 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 11:35:46 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/28 21:24:42 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
 
 void	get_set(char *str, t_window *window)
 {
@@ -24,7 +23,6 @@ void	get_set(char *str, t_window *window)
 	return ;
 }
 
-//TODO : improve this ? 
 int	get_julia(char *real, char *im, t_window *window)
 {
 	if ((real && !ft_isdigit(*real) && !ft_issign(*real))
@@ -37,12 +35,12 @@ int	get_julia(char *real, char *im, t_window *window)
 	return (0);
 }
 
-int	get_color(char *str, t_window *window)
+static int	get_color(char *str, t_window *window)
 {
 	if (!ft_strncmp(str, "kirlian", 8))
 		window->color = KIRLIAN;
-	else if (!ft_strncmp(str, "rainbow", 8))
-		window->color = RAINBOW;
+	else if (!ft_strncmp(str, "default", 8))
+		window->color = COL_DEFAULT;
 	return (window->color);
 }
 
@@ -52,7 +50,7 @@ void	parse_julia(t_window *window, int *i, int argc, char **argv)
 	if (!window->julia_cmplx)
 		clean_exit(errnl("error on malloc", 666), window);
 	if (argc < 4)
-		*(window->julia_cmplx) = (t_point){0.2, 0.7667};
+		*(window->julia_cmplx) = (t_point){-0.8, 0.156};
 	else if (get_julia(argv[*i], argv[*i + 1], window) == -1)
 		clean_exit(errnl("Wrong Julia arguments", 1), window);
 	else
@@ -76,6 +74,6 @@ int	parse(int argc, char **argv, t_window *window)
 			return (clean_exit(errnl("Wrong color set", 420), window));
 	}
 	else
-		window->color = KIRLIAN;
+		window->color = COL_DEFAULT;
 	return (0);
 }
