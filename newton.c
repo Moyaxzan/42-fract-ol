@@ -6,76 +6,64 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:30:07 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 23:14:38 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/28 21:34:38 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_point	g(t_point t)
+double	rectangular_distance(t_point z1, t_point z2)
 {
-    t_point	result;
-    double imaginaryPart = round(t.y / M_PI / 2) * M_PI * 2;
-    result.x = 0;
-    result.y = imaginaryPart;
-    return result;
+	double	dx;
+	double	dy;
+
+	dx = z1.x - z2.x;
+	dy = z1.y - z2.y;
+	return (fmax(fabs(dx), fabs(dy)));
 }
 
-/*
-t_point apply_formula(t_point p)
+int	color_indicator(t_point point)
 {
-    t_point	result;
-    result.x = p.x - (cosh(p.x) - 1) / sinh(p.x);
-    result.y = p.y * sinh(p.x) + p.x * cosh(p.y);
-    return result;
-}*/
-
-static float	is_in_newton(t_point c)
-{
-	float	i;
+	t_point	attractor_point;
+	double	min_distance;
+	double	distance;
+	int		attractor;
+	int		i;
 
 	i = 0;
 	while (i < NB_ITER)
 	{
-		i = i + 1.0;
-		t_point temp = ft_cosh(c);
-		c = divide_cmplx(add_cmplx(mult_cmplx(c, ft_sinh(c)),
-			(t_point){-temp.x + 1, -temp.y}), ft_sinh(c));
-		//c = apply_formula(c);
-		if (modulus(add_cmplx(g(c), (t_point){-c.x, -c.y})) > 0.1)
-			return (i);
+		attractor_point = (t_point){0, i * 2.0 * M_PI};
+		distance = rectangular_distance(point, attractor_point);
+		if (!i || rectangular_distance(point, attractor_point) < min_distance)
+		{
+			min_distance = distance;
+			attractor = i;
+		}
+		i++;
 	}
-	return (i);
+	return (attractor * (NB_ITER + 1) + (NB_ITER - attractor));
 }
 
-static int	get_color(int colors[12], float coefs[11], float iter)
+static float	is_in_newton(t_point c)
 {
-	if (iter > coefs[0] * NB_ITER / 12)
-		return (colors[0]);
-	if (iter > coefs[1] * NB_ITER / 12)
-		return (colors[1]);
-	if (iter > coefs[2] * NB_ITER / 12)
-		return (colors[2]);
-	if (iter > coefs[3] * NB_ITER / 12)
-		return (colors[3]);
-	if (iter > coefs[4] * NB_ITER / 12)
-		return (colors[4]);
-	if (iter > coefs[5] * NB_ITER / 12)
-		return (colors[5]);
-	if (iter > coefs[6] * NB_ITER / 12)
-		return (colors[6]);
-	if (iter > coefs[7] * NB_ITER / 12)
-		return (colors[7]);
-	if (iter > coefs[8] * NB_ITER / 12)
-		return (colors[8]);
-	if (iter > coefs[9] * NB_ITER / 12)
-		return (colors[9]);
-	if (iter > coefs[10] * NB_ITER / 12)
-		return (colors[10]);
-	return (colors[11]);
+	float	i;
+	t_point	temp;
+
+	i = 0;
+	while (i < NB_ITER)
+	{
+		temp = ft_cosh(c);
+		c = divide_cmplx(mult_cmplx(c, add_cmplx(ft_sinh(c),
+						(t_point){-temp.x + 1, -temp.y})), ft_sinh(c));
+		i++;
+		if (rectangular_distance(c, (t_point){0, i * 2.0 * M_PI}) < 0.01)
+			break ;
+	}
+	return (color_indicator(c));
 }
 
-int	draw_newton(t_window *window, int colors[12], float coefs[11], float zoom)
+int	draw_newton(t_window *window)
 {
 	int		x;
 	int		y;
@@ -86,17 +74,16 @@ int	draw_newton(t_window *window, int colors[12], float coefs[11], float zoom)
 	y = -1;
 	while (++y < WIN_HEIGHT)
 	{
-		p_y = (y - WIN_HEIGHT / 2.0) / (0.25 * zoom * 0.1 * WIN_HEIGHT) + START_Y;              
+		p_y = (y - WIN_HEIGHT / 2.0)
+			/ (0.25 * window->zoom * 0.1 * WIN_HEIGHT) + START_Y;
 		x = -1;
 		while (++x < WIN_WIDTH)
 		{
 			p_x = 1.5 * (x - WIN_WIDTH / 2.0)
-				/ (0.25 * zoom * WIN_WIDTH) + START_X;
+				/ (0.25 * window->zoom * WIN_WIDTH) + START_X;
 			i = is_in_newton((t_point){p_x, p_y});
-			if (i == NB_ITER)
-				img_pix_put(&(window->img), x, y, 0x0000000);
-			else
-				img_pix_put(&(window->img), x, y, get_color(colors, coefs, i));
+			img_pix_put(&(window->img), x, y,
+				(window->color * i) / window->zoom);
 		}
 	}
 	mlx_put_image_to_window
