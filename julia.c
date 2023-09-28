@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:20:40 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 18:30:59 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:35:32 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static float	is_in_julia(t_point c, t_point *start)
 
 	z.x = start->x;
 	z.y = start->y;
-	printf("x = %f, y = %f\n", z.x, z.y);
 	i = 0;
 	while (i < NB_ITER)
 	{

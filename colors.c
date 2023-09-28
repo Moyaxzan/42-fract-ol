@@ -6,13 +6,13 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 17:27:12 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/25 10:13:03 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/26 22:33:49 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	coefs_kirlian(float coefs[12])
+void	coefs_kirlian(float coefs[11])
 {
 	coefs[0] = 9.4;
 	coefs[1] = 6.4;
@@ -43,7 +43,7 @@ void	colors_kirlian(int colors[12], float coefs[11])
 	coefs_kirlian(coefs);
 }
 
-void	coefs_rainbow(float coefs[12])
+void	coefs_rainbow(float coefs[11])
 {
 	coefs[0] = 5.4;
 	coefs[1] = 3.0;

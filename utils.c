@@ -6,12 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:56:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 19:22:17 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:35:40 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
 int	ft_issign(int c)
 {
@@ -36,9 +35,17 @@ double	ft_atof(const char *str)
 	double	int_part;
 	double	dec_part;
 	size_t	len;
+	int		sign;
 
+	sign = 1;
 	int_part = (double) ft_atoi(str);
-	while (str && ft_isdigit(*str) && *str != '.')
+	if (str && (*str == '-' || *str == '+'))
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (str && ft_isdigit(*str) && *str != '.' && *str)
 		str++;
 	if (*str == '.')
 		str++;
@@ -46,7 +53,7 @@ double	ft_atof(const char *str)
 	len = size_num(str);
 	while (len--)
 		dec_part /= 10;
-	if (int_part >= 0)
+	if (sign == 1)
 		return (int_part + dec_part);
 	return (int_part - dec_part);
 }

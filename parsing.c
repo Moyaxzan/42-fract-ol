@@ -6,11 +6,12 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 19:05:59 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:35:46 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
 
 void	get_set(char *str, t_window *window)
 {
