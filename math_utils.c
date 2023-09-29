@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:30:19 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/26 18:40:20 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/28 22:44:28 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,20 @@ double	modulus(t_point z)
 	return ((sqrt((z.x * z.x) + (z.y * z.y))));
 }
 
-t_point	ft_cosh(t_point z)
+t_point	ft_cos(t_point z)
 {
 	t_point	res;
 
-	res.x = cosh(z.x) * cos(z.y);
-	res.y = sinh(z.x) * sin(z.y);
+	res.x = cos(z.x) * cosh(z.y);
+	res.y = sin(z.x) * sinh(z.y);
 	return (res);
 }
 
-t_point	ft_sinh(t_point z)
+t_point	ft_sin(t_point z)
 {
 	t_point	res;
 
-	res.x = sinh(z.x) * cos(z.y);
-	res.y = cosh(z.x) * sin(z.y);
+	res.x = sin(z.x) * cosh(z.y);
+	res.y = cos(z.x) * sinh(z.y);
 	return (res);
 }

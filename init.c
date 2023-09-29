@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:19:03 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 21:16:52 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/29 13:43:50 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ t_window	*init_window(void)
 	window->set = 0;
 	window->julia_cmplx = 0x0;
 	window->color = 0;
-	window->zoom = 1;
+	window->zoom = 0.99;
+	window->offset.x = 0;
+	window->offset.y = 0;
 	return (window);
 }

@@ -6,61 +6,29 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:30:07 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 21:34:38 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/28 23:59:44 by taospa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-double	rectangular_distance(t_point z1, t_point z2)
-{
-	double	dx;
-	double	dy;
-
-	dx = z1.x - z2.x;
-	dy = z1.y - z2.y;
-	return (fmax(fabs(dx), fabs(dy)));
-}
-
-int	color_indicator(t_point point)
-{
-	t_point	attractor_point;
-	double	min_distance;
-	double	distance;
-	int		attractor;
-	int		i;
-
-	i = 0;
-	while (i < NB_ITER)
-	{
-		attractor_point = (t_point){0, i * 2.0 * M_PI};
-		distance = rectangular_distance(point, attractor_point);
-		if (!i || rectangular_distance(point, attractor_point) < min_distance)
-		{
-			min_distance = distance;
-			attractor = i;
-		}
-		i++;
-	}
-	return (attractor * (NB_ITER + 1) + (NB_ITER - attractor));
-}
-
-static float	is_in_newton(t_point c)
+static float	iter_newton(t_point c)
 {
 	float	i;
-	t_point	temp;
+	t_point	temp_sin;
+	t_point	temp_cos;
 
 	i = 0;
 	while (i < NB_ITER)
 	{
-		temp = ft_cosh(c);
-		c = divide_cmplx(mult_cmplx(c, add_cmplx(ft_sinh(c),
-						(t_point){-temp.x + 1, -temp.y})), ft_sinh(c));
-		i++;
-		if (rectangular_distance(c, (t_point){0, i * 2.0 * M_PI}) < 0.01)
+		temp_sin = ft_cos(c);
+		temp_cos = ft_sin(c);
+		if ((!temp_sin.x && !temp_sin.y) || !(temp_sin.x - temp_sin.y))
 			break ;
+		c = add_cmplx(c, divide_cmplx(temp_cos, temp_sin));
+		i++;
 	}
-	return (color_indicator(c));
+	return (i);
 }
 
 int	draw_newton(t_window *window)
@@ -81,7 +49,7 @@ int	draw_newton(t_window *window)
 		{
 			p_x = 1.5 * (x - WIN_WIDTH / 2.0)
 				/ (0.25 * window->zoom * WIN_WIDTH) + START_X;
-			i = is_in_newton((t_point){p_x, p_y});
+			i = iter_newton((t_point){p_x, p_y});
 			img_pix_put(&(window->img), x, y,
 				(window->color * i) / window->zoom);
 		}
