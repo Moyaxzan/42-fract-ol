@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:50:08 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 15:12:24 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:42:27 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,26 @@ int	handle_input(int keysym, t_window *window)
 {
 	if (keysym == K_A_UP || keysym == K_W)
 		ft_move(WIN_WIDTH / 2, WIN_HEIGHT / 4, window);
-	if (keysym == K_A_DOWN || keysym == K_S)
+	else if (keysym == K_A_DOWN || keysym == K_S)
 		ft_move(WIN_WIDTH / 2, 3 * WIN_HEIGHT / 4, window);
-	if (keysym == K_A_LEFT || keysym == K_A)
+	else if (keysym == K_A_LEFT || keysym == K_A)
 		ft_move(WIN_WIDTH / 4, WIN_HEIGHT / 2, window);
-	if (keysym == K_A_RIGHT || keysym == K_D)
+	else if (keysym == K_A_RIGHT || keysym == K_D)
 		ft_move(3 * WIN_WIDTH / 4, WIN_HEIGHT / 2, window);
+	else if (keysym == K_Q && window->color > 0x000050)
+		window->color *= 0.9;
+	else if (keysym == K_E && window->color < 0x0FFFFFFF)
+		window->color *= 1.1;
+	else if (keysym == K_PLUS)
+		window->zoom *= 1.2;
+	else if (keysym == K_MINUS)
+		window->zoom *= 0.8;
+	else if ((keysym == K_OPBRAC || keysym == K_CLBRAC)
+		&& window->set == JULIA)
+		change_julia(keysym, window);
 	else if (keysym == XK_Escape)
 		clean_exit(0, window);
+	draw(window);
 	return (0);
 }
 

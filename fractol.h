@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 13:49:01 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:47:35 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@
 # define K_A_DOWN 65364  // move down
 # define K_A_LEFT 65361  // move left
 # define K_A_RIGHT 65363 // move right
-# define K_PLUS 61       //
-# define K_MINUS 45      //
+# define K_PLUS 61       // zoom in 
+# define K_MINUS 45      // zoom out
 # define K_OPBRAC 91     // Change Fractal coefs -
 # define K_CLBRAC 93     // Change Fractal coefs +
-# define K_ENTER 65293   //
+# define K_ENTER 65293   // ?
 # define K_Q 113    // change color -
 # define K_W 119    // move up
 # define K_E 101    // change color +
@@ -97,6 +97,7 @@ t_window	*init_window(void);
 
 /*----------------julia.c--------------------*/
 int			draw_julia(t_window *window);
+void		change_julia(int key, t_window *window);
 
 /*---------------mandelbrot.c----------------*/
 int			draw_mdb(t_window *window);

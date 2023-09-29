@@ -6,7 +6,7 @@
 /*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 13:54:18 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:15:16 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	draw_mdb(t_window *win)
 			if (i == NB_ITER)
 				img_pix_put(&(win->img), x, y, 0x0000000);
 			else
-				img_pix_put(&(win->img), x, y, (win->color * i) / win->zoom);
+				img_pix_put(&(win->img), x, y, win->color * i);
 		}
 	}
 	mlx_put_image_to_window

@@ -6,11 +6,29 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:20:40 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 14:43:08 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:48:29 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	change_julia(int key, t_window *window)
+{
+	if (key == K_OPBRAC)
+	{
+		if (window->julia_cmplx->x > -1.990)
+			window->julia_cmplx->x -= 0.02;
+		if (window->julia_cmplx->y > -1.990)
+			window->julia_cmplx->y -= 0.02;
+	}
+	else if (key == K_CLBRAC)
+	{
+		if (window->julia_cmplx->x < 1.990)
+			window->julia_cmplx->x += 0.02;
+		if (window->julia_cmplx->y < 1.990)
+			window->julia_cmplx->y += 0.02;
+	}
+}
 
 static float	is_in_julia(t_point c, t_point *start)
 {
@@ -51,7 +69,7 @@ int	draw_julia(t_window *win)
 			if (i == NB_ITER)
 				img_pix_put(&(win->img), x, y, 0x0000000);
 			else
-				img_pix_put(&(win->img), x, y, (win->color * i) / win->zoom);
+				img_pix_put(&(win->img), x, y, win->color * i);
 		}
 	}
 	mlx_put_image_to_window
