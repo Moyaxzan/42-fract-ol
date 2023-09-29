@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:50:08 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 21:57:53 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/29 12:18:28 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int	handle_input(int keysym, t_window *window)
 	return (0);
 }
 
-int	handle_cross(int keysym, t_window *window)
+int	handle_cross(t_window *window)
 {
-	if (keysym == LeaveNotify)
-		clean_exit(0, window);
+	clean_exit(0, window);
 	return (0);
 }
 
@@ -42,7 +41,7 @@ int	mouse_events(int keysym, int x, int y, void *window)
 		((t_window *)window)->zoom *= 1.1;
 		draw(window);
 	}
-	else if (keysym == Button5)
+	else if (keysym == Button5 && ((t_window *)window)->zoom > 0.0045)
 	{
 		((t_window *)window)->zoom *= 0.9;
 		draw(window);

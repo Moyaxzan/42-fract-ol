@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 22:44:46 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/29 11:58:05 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define MLX_ERROR 1
 # define WIN_WIDTH 1200
 # define WIN_HEIGHT 800
-# define NB_ITER 120
+# define NB_ITER 50
 # define DEGREE 2
 # define START_X 0.0
 # define START_Y 0.0
@@ -69,7 +69,7 @@ int			draw(t_window *window);
 /*----------------events.c-------------------*/
 int			handle_input(int keysym, t_window *data);
 int			mouse_events(int keysym, int x, int y, void *window);
-int			handle_cross(int keysym, t_window *window);
+int			handle_cross(t_window *window);
 
 /*-----------------exit.c--------------------*/
 void		exit_mlx(t_window *window);
