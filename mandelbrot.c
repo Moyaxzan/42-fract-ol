@@ -6,7 +6,7 @@
 /*   By: tsaint-p <tsaint-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 15:15:32 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 21:36:49 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/29 13:54:18 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,20 @@ int	draw_mdb(t_window *win)
 {
 	int		x;
 	int		y;
-	double	p_y;
-	double	p_x;
 	float	i;
+	t_point	p;
 
 	y = -1;
 	while (++y < WIN_HEIGHT)
 	{
-		p_y = (y - WIN_HEIGHT / 2.0) / (0.5 * win->zoom * WIN_HEIGHT) + START_Y;
+		p.y = (y - WIN_HEIGHT / 2.0) / (0.5 * win->zoom * WIN_HEIGHT)
+			+ START_Y + win->offset.y;
 		x = -1;
 		while (++x < WIN_WIDTH)
 		{
-			p_x = 1.5 * (x - WIN_WIDTH / 2.0)
-				/ (0.5 * win->zoom * WIN_WIDTH) + START_X - 0.67;
-			i = is_in_mandelbrot((t_point){p_x, p_y});
+			p.x = 1.5 * (x - WIN_WIDTH / 2.0) / (0.5 * win->zoom
+				* WIN_WIDTH) + START_X - 0.67 + win->offset.x;
+			i = is_in_mandelbrot((t_point){p.x, p.y});
 			if (i == NB_ITER)
 				img_pix_put(&(win->img), x, y, 0x0000000);
 			else
