@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:50:08 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 14:27:13 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:12:24 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,15 @@ int	handle_no_event(void *window)
 
 int	handle_input(int keysym, t_window *window)
 {
-	if (keysym == XK_Escape)
+	if (keysym == K_A_UP || keysym == K_W)
+		ft_move(WIN_WIDTH / 2, WIN_HEIGHT / 4, window);
+	if (keysym == K_A_DOWN || keysym == K_S)
+		ft_move(WIN_WIDTH / 2, 3 * WIN_HEIGHT / 4, window);
+	if (keysym == K_A_LEFT || keysym == K_A)
+		ft_move(WIN_WIDTH / 4, WIN_HEIGHT / 2, window);
+	if (keysym == K_A_RIGHT || keysym == K_D)
+		ft_move(3 * WIN_WIDTH / 4, WIN_HEIGHT / 2, window);
+	else if (keysym == XK_Escape)
 		clean_exit(0, window);
 	return (0);
 }
