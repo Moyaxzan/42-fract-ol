@@ -6,11 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:20:40 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 15:48:29 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:05:25 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 void	change_julia(int key, t_window *window)
 {
@@ -58,8 +58,8 @@ int	draw_julia(t_window *win)
 	y = -1;
 	while (++y < WIN_HEIGHT)
 	{
-		p.y = (y - WIN_HEIGHT / 2.0) /
-			(0.5 * win->zoom * WIN_HEIGHT) + START_Y + win->offset.y;
+		p.y = (y - WIN_HEIGHT / 2.0)
+			/ (0.5 * win->zoom * WIN_HEIGHT) + START_Y + win->offset.y;
 		x = -1;
 		while (++x < WIN_WIDTH)
 		{

@@ -6,11 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:06:30 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 12:21:35 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:05:54 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 void	img_pix_put(t_img *img, int x, int y, int color)
 {

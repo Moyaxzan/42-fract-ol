@@ -6,11 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:20:31 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 14:27:09 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:06:20 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 void	ft_move(int x, int y, t_window *window)
 {

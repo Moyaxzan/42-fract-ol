@@ -6,11 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:30:07 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 23:59:44 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/30 15:06:02 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 static float	iter_newton(t_point c)
 {

@@ -6,11 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:30:19 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 22:44:28 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/30 15:05:47 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 t_point	mult_cmplx(t_point c1, t_point c2)
 {

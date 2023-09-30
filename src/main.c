@@ -6,11 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:29:33 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/28 21:38:07 by taospa           ###   ########.fr       */
+/*   Updated: 2023/09/30 15:05:32 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 //TODO : free on errors !
 int	main(int argc, char **argv)

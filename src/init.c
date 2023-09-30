@@ -6,11 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:19:03 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 13:43:50 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/30 15:05:17 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../fractol.h"
 
 int	init_mlx(t_window *window)
 {
