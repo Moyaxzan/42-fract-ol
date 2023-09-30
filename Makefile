@@ -35,25 +35,35 @@ MLX = $(MLX_PATH)/libmlx.a
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) -L$(MLX_PATH) $^ $(MLX_FLAGS) -lm -o $@
+	@$(CC) $(CFLAGS) -L$(MLX_PATH) $^ $(MLX_FLAGS) -lm -o $@
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-	make -C $(LIBFTDIR)
+	@echo "making libft..."
+	@make -sC $(LIBFTDIR)
+	@echo "Done !"
 
 $(MLX):
-	make -C $(MLX_PATH)
+	@echo "making MinilibX..."
+	@make -sC $(MLX_PATH)
+	@echo "Done !"
 
 clean:
-	make -C $(LIBFTDIR) clean
-	make -C $(MLX_PATH) clean
-	rm $(RM_FLAGS) $(OBJS)
+	@echo "cleaning libft..."
+	@make -sC $(LIBFTDIR) clean
+	@echo "cleaning MinilibX..."
+	@make -sC $(MLX_PATH) clean
+	@echo "cleaning .o files..."
+	@rm $(RM_FLAGS) $(OBJS)
+	@echo "Project cleaned !"
 
 fclean: clean
-	make -C $(LIBFTDIR) fclean
-	rm $(RM_FLAGS) $(NAME)
+	@echo "cleaning executable and libft.a"
+	@make -sC $(LIBFTDIR) fclean
+	@rm $(RM_FLAGS) $(NAME)
+	@echo "Project fully cleaned"
 
 re: fclean all
 

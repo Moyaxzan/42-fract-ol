@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/29 15:47:35 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/30 20:02:02 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define K_MINUS 45      // zoom out
 # define K_OPBRAC 91     // Change Fractal coefs -
 # define K_CLBRAC 93     // Change Fractal coefs +
-# define K_ENTER 65293   // ?
 # define K_Q 113    // change color -
 # define K_W 119    // move up
 # define K_E 101    // change color +
@@ -106,10 +105,10 @@ int			draw_mdb(t_window *window);
 t_point		mult_cmplx(t_point c1, t_point c2);
 t_point		add_cmplx(t_point c1, t_point c2);
 double		modulus(t_point z);
-t_point		ft_cos(t_point z);
-t_point		ft_sin(t_point z);
+t_point		ft_cosh(t_point z);
+t_point		ft_sinh(t_point z);
 
-/*---------------mlx_utils.c-----------------*/
+/*------------------mlx_utils.c-------------*/
 void		img_pix_put(t_img *img, int x, int y, int color);
 int			hook_n_loop(t_window *window);
 
@@ -123,5 +122,6 @@ int			parse(int argc, char **argv, t_window *window);
 int			ft_issign(int c);
 double		ft_atof(const char *str);
 t_point		divide_cmplx(t_point num, t_point deno);
+float		ft_max(float a, float b);
 
 #endif

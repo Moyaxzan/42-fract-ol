@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:56:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/30 15:06:15 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/09/30 16:42:44 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,11 @@ t_point	divide_cmplx(t_point num, t_point deno)
 	res.y = ((num.y * deno.x) + (num.x * deno.y))
 		/ (pow(deno.x, 2) - pow(deno.y, 2));
 	return (res);
+}
+
+float	ft_max(float a, float b)
+{
+	if (a > b)
+		return (a);
+	return (b);
 }
