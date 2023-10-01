@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:50:08 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/30 15:04:55 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:46:33 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_input(int keysym, t_window *window)
 	else if ((keysym == K_OPBRAC || keysym == K_CLBRAC)
 		&& window->set == JULIA)
 		change_julia(keysym, window);
-	else if (keysym == XK_Escape)
+	else if (keysym == K_ESC)
 		clean_exit(0, window);
 	draw(window);
 	return (0);

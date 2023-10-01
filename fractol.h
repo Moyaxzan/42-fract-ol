@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/30 20:02:02 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:46:02 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define W_RED "\e[1;31m" 
 # define W_BLUE "\e[0;36m" 
 # define W_RESET "\e[0;0m" 
+# define K_ESC 65307
 # define K_A_UP 65362    // move up
 # define K_A_DOWN 65364  // move down
 # define K_A_LEFT 65361  // move left
@@ -42,7 +43,6 @@
 # define K_D 100    //move right
 # include "minilibx-linux/mlx.h"
 # include "libft/libft.h"
-# include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdlib.h>
 # include <math.h>

@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:30:07 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/30 21:12:40 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 16:24:40 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	is_root(t_point c)
 	return (ft_max(fabs(c.x), fabs(c.y)) < 0.01);
 }
 
-static int	newton_raphson(t_point c)
+static int	newton_raphson(t_point c, int color)
 {
 	int	math_error;
 	int	colors[3];
@@ -49,9 +49,9 @@ static int	newton_raphson(t_point c)
 
 	i = 0;
 	math_error = 0;
-	colors[0] = 0x0FF0000;
-	colors[1] = 0x000FF00;
-	colors[2] = 0x0000000;
+	colors[0] = color / color;
+	colors[1] = color;
+	colors[2] = color / 3;
 	while (i++ < NB_ITER)
 	{
 		c = f(c, &math_error);
@@ -66,7 +66,7 @@ static int	newton_raphson(t_point c)
 }
 
 //TODO: add offset
-int	draw_newton(t_window *window)
+int	draw_newton(t_window *win)
 {
 	int		x;
 	int		y;
@@ -76,16 +76,16 @@ int	draw_newton(t_window *window)
 	while (++y < WIN_HEIGHT)
 	{
 		p.y = (y - WIN_HEIGHT / 2.0)
-			/ (0.5 * window->zoom * WIN_HEIGHT) + START_Y;
+			/ (0.5 * win->zoom * WIN_HEIGHT) + 3.15 + START_Y + win->offset.y;
 		x = -1;
 		while (++x < WIN_WIDTH)
 		{
 			p.x = 1.5 * (x - WIN_WIDTH / 2.0)
-				/ (0.5 * window->zoom * WIN_WIDTH) + START_X;
-			img_pix_put(&window->img, x, y, newton_raphson(p));
+				/ (0.5 * win->zoom * WIN_WIDTH) + START_X + win->offset.x;
+			img_pix_put(&win->img, x, y, newton_raphson(p, win->color));
 		}
 	}
 	mlx_put_image_to_window
-		(window->mlx_ptr, window->win_ptr, window->img.mlx_img, 0, 0);
+		(win->mlx_ptr, win->win_ptr, win->img.mlx_img, 0, 0);
 	return (1);
 }

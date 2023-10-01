@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:30:19 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/30 17:51:15 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 15:36:54 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ t_point	ft_cosh(t_point z)
 {
 	t_point	res;
 
-	res.x = cosh(z.x) * cosh(z.y);
-	res.y = sinh(z.x) * sinh(z.y);
+	res.x = cosh(z.x) * cos(z.y);
+	res.y = sinh(z.x) * sin(z.y);
 	return (res);
 }
 
@@ -48,7 +48,7 @@ t_point	ft_sinh(t_point z)
 {
 	t_point	res;
 
-	res.x = sinh(z.x) * cosh(z.y);
-	res.y = cosh(z.x) * sinh(z.y);
+	res.x = sinh(z.x) * cos(z.y);
+	res.y = cosh(z.x) * sin(z.y);
 	return (res);
 }

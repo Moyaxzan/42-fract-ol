@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:56:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/30 16:42:44 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 15:40:32 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ double	ft_atof(const char *str)
 
 t_point	divide_cmplx(t_point num, t_point deno)
 {
-	t_point	res;
+    t_point res;
 
-	res.x = ((num.x * deno.x) + (num.y * deno.y))
-		/ (pow(deno.x, 2) + pow(deno.y, 2));
-	res.y = ((num.y * deno.x) + (num.x * deno.y))
-		/ (pow(deno.x, 2) - pow(deno.y, 2));
-	return (res);
+    double denominator = (deno.x * deno.x) + (deno.y * deno.y);
+
+    res.x = ((num.x * deno.x) + (num.y * deno.y)) / denominator;
+    res.y = ((num.y * deno.x) - (num.x * deno.y)) / denominator;
+
+    return res;
 }
-
 float	ft_max(float a, float b)
 {
 	if (a > b)
