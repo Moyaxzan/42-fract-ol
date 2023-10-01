@@ -6,16 +6,11 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:56:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/01 15:40:32 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:24:23 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
-
-int	ft_issign(int c)
-{
-	return (c == '-' || c == '+');
-}
 
 static size_t	size_num(const char *str)
 {
@@ -69,9 +64,34 @@ t_point	divide_cmplx(t_point num, t_point deno)
 
     return res;
 }
-float	ft_max(float a, float b)
+
+static int	xchartoi(char c)
 {
-	if (a > b)
-		return (a);
-	return (b);
+	if (c >= '0' && c <= '9')
+		return (c - '0');
+	if (c >= 'A' && c <= 'F')
+		return (c - 'A' + 10);
+	if (c >= 'a' && c <= 'f')
+		return (c - 'a' + 10);
+	return (-1);
+}
+
+int	xtoi(const char *hexString)
+{
+    int	res;
+	int	char_val;
+
+	res = 0;
+    if (hexString[0] == '0' && (hexString[1] == 'x'
+		|| hexString[1] == 'X'))
+        hexString += 2;
+    while (*hexString != '\0')
+	{
+        char_val = xchartoi(*hexString);
+        if (char_val == -1)
+            return (-1);
+        res = res * 16 + char_val;
+        hexString++;
+    }
+    return (res);
 }

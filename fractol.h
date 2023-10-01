@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/01 16:46:02 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:29:19 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # define JULIA 2
 # define MANDELBROT 1
 # define COL_DEFAULT 0x8c00ff
-# define KIRLIAN 2021
 # define W_RED "\e[1;31m" 
 # define W_BLUE "\e[0;36m" 
 # define W_RESET "\e[0;0m" 
@@ -119,9 +118,8 @@ int			draw_newton(t_window *window);
 int			parse(int argc, char **argv, t_window *window);
 
 /*-----------------utils.c-------------------*/
-int			ft_issign(int c);
 double		ft_atof(const char *str);
 t_point		divide_cmplx(t_point num, t_point deno);
-float		ft_max(float a, float b);
+int			xtoi(const char *hexString);
 
 #endif

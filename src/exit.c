@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 11:14:54 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/30 15:05:06 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:39:23 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	print_fractal_options(void)
 	ft_putendl_fd("\tm - mandelbrot", 1);
 	ft_putendl_fd("\tj - julia", 1);
 	ft_putendl_fd("\tn - newton", 1);
-	ft_putendl_fd("\e[36mUsage example:\t./fractol <type> <colors>", 1);
-	ft_putendl_fd("\t\t./fractol mandelbrot rainbow\e[0m", 1);
+	ft_putendl_fd("\e[36mUsage example:\t./fractol <set>  <color>", 1);
+	ft_putendl_fd("\t\t./fractol newton 0x0454545\e[0m", 1);
 	ft_putstr_fd("\nFor Julia, you may specify starting values for the\n", 1);
 	ft_putstr_fd("initial fractal shape. Values must be between\n", 1);
 	ft_putendl_fd("-2.0 and 2.0 and must contain a decimal point.", 1);

@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 18:30:07 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/01 16:24:40 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:15:12 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,14 @@ static t_point	attractor(t_point c)
 
 static int	is_root(t_point c)
 {
-	return (ft_max(fabs(c.x), fabs(c.y)) < 0.01);
+	float	abs_x;
+	float	abs_y;
+
+	abs_x = fabs(c.x);
+	abs_y = fabs(c.y);
+	if (abs_x > abs_y)
+		return (abs_x < 0.01);
+	return (fabs(c.y) < 0.01);
 }
 
 static int	newton_raphson(t_point c, int color)
@@ -60,12 +67,9 @@ static int	newton_raphson(t_point c, int color)
 		if (is_root(add_cmplx(attractor(c), (t_point){-c.x, -c.y})))
 			break ;
 	}
-	//printf("c.y = %f, i = %d, all = %d\n", c.y, i, ((int)(round(c.y / M_PI / 2) + i) % 3));
-	//fflush(stdout);
 	return (colors[abs((int)(round(c.y / M_PI / 2) + i) % 3)]);
 }
 
-//TODO: add offset
 int	draw_newton(t_window *win)
 {
 	int		x;

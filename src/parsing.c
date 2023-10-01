@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/09/30 15:06:08 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:49:37 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void	get_set(char *str, t_window *window)
 
 int	get_julia(char *real, char *im, t_window *window)
 {
-	if ((real && !ft_isdigit(*real) && !ft_issign(*real))
-		|| (im && !ft_isdigit(*im) && !ft_issign(*im)))
+	if (!real || !im)
+		return (-1);
+	if ((!ft_isdigit(*real) && !(*real == '-' || *real == '+'))
+		|| (!ft_isdigit(*im) && !(*im == '-' || *im == '+')))
 		return (-1);
 	window->julia_cmplx->x = ft_atof(real);
 	window->julia_cmplx->y = ft_atof(im);
@@ -37,11 +39,18 @@ int	get_julia(char *real, char *im, t_window *window)
 
 static int	get_color(char *str, t_window *window)
 {
-	if (!ft_strncmp(str, "kirlian", 8))
-		window->color = KIRLIAN;
-	else if (!ft_strncmp(str, "default", 8))
-		window->color = COL_DEFAULT;
-	return (window->color);
+	int	color;
+
+	color = xtoi(str);
+	if (color == -1)
+		return (0);
+	if (color < 16)
+	{
+		write(2, "hex value too low -> ", 21);
+		return (0);
+	}
+	window->color = color;
+	return (1);
 }
 
 void	parse_julia(t_window *window, int *i, int argc, char **argv)
@@ -53,6 +62,10 @@ void	parse_julia(t_window *window, int *i, int argc, char **argv)
 		*(window->julia_cmplx) = (t_point){-0.8, 0.156};
 	else if (get_julia(argv[*i], argv[*i + 1], window) == -1)
 		clean_exit(errnl("Wrong Julia arguments", 1), window);
+	else if ((window->julia_cmplx->x < -2.0f || window->julia_cmplx->x > 2.0f)
+			|| (window->julia_cmplx->y < -2.0f || window->julia_cmplx->y > 2.0f))
+		clean_exit(errnl("Values of julia must be between -2.0 and 2.0"
+			, 1), window);
 	else
 		*i = 4;
 }
@@ -71,7 +84,7 @@ int	parse(int argc, char **argv, t_window *window)
 	if (i < argc)
 	{
 		if (!get_color(argv[i], window))
-			return (clean_exit(errnl("Wrong color set", 420), window));
+			return (clean_exit(errnl("Wrong color hex", 420), window));
 	}
 	else
 		window->color = COL_DEFAULT;
