@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/01 18:49:37 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/01 19:04:12 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	get_set(char *str, t_window *window)
 {
-	if (!ft_strncmp(str, "newton", 6) || !ft_strncmp(str, "n", 2))
+	if (!ft_strncmp(str, "--help", 7) || !ft_strncmp(str, "-h", 3))
+		clean_exit(errnl(0x0, 0), window);
+	if (!ft_strncmp(str, "newton", 7) || !ft_strncmp(str, "n", 2))
 		window->set = NEWTON;
 	else if (!ft_strncmp(str, "julia", 6) || !ft_strncmp(str, "j", 2))
 		window->set = JULIA;
