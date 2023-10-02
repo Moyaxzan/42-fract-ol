@@ -6,13 +6,13 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:56:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/02 08:18:03 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:12:13 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-static size_t	size_num(const char *str)
+static size_t	size_num(const char *str, t_window *window)
 {
 	size_t	i;
 
@@ -22,10 +22,12 @@ static size_t	size_num(const char *str)
 		str++;
 		i++;
 	}
+	if (str && *str && *str != 'i')
+		clean_exit(errnl("invalid julia arg", 35), window);
 	return (i);
 }
 
-double	ft_atof(const char *str)
+double	ft_atof(const char *str, t_window *window)
 {
 	double	int_part;
 	double	dec_part;
@@ -45,7 +47,7 @@ double	ft_atof(const char *str)
 	if (*str == '.')
 		str++;
 	dec_part = (double) ft_atoi(str);
-	len = size_num(str);
+	len = size_num(str, window);
 	while (len--)
 		dec_part /= 10;
 	if (sign == 1)

@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/02 08:10:37 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:13:02 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	get_julia(char *real, char *im, t_window *window)
 	if ((!ft_isdigit(*real) && !(*real == '-' || *real == '+'))
 		|| (!ft_isdigit(*im) && !(*im == '-' || *im == '+')))
 		return (-1);
-	window->julia_cmplx->x = ft_atof(real);
-	window->julia_cmplx->y = ft_atof(im);
+	window->julia_cmplx->x = ft_atof(real, window);
+	window->julia_cmplx->y = ft_atof(im, window);
 	if (window->julia_cmplx->y == 0.00f && window->julia_cmplx->x == 0.00f)
 		return (-1);
 	return (0);

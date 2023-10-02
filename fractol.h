@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 14:29:50 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/01 18:29:19 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:12:34 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int			draw_newton(t_window *window);
 int			parse(int argc, char **argv, t_window *window);
 
 /*-----------------utils.c-------------------*/
-double		ft_atof(const char *str);
+double		ft_atof(const char *str, t_window *window);
 t_point		divide_cmplx(t_point num, t_point deno);
 int			xtoi(const char *hexString);
 

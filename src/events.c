@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:50:08 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/01 16:46:33 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/02 10:48:14 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,23 @@ int	handle_no_event(void *window)
 	return (0);
 }
 
+static int	is_valid_key(int key)
+{
+	if (key == K_Q || key == K_W || key == K_E || key == K_ESC)
+		return (1);
+	if (key == K_A || key == K_S || key == K_D)
+		return (1);
+	if (key == 93 || key == 91 || key == 45)
+		return (1);
+	if ((key >= 65361 && key <= 65364) || key == 61)
+		return (1);
+	return (0);
+}
+
 int	handle_input(int keysym, t_window *window)
 {
+	if (!is_valid_key(keysym))
+		return (0);
 	if (keysym == K_A_UP || keysym == K_W)
 		ft_move(WIN_WIDTH / 2, WIN_HEIGHT / 4, window);
 	else if (keysym == K_A_DOWN || keysym == K_S)
