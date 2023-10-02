@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 11:14:54 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/02 11:25:24 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/02 12:46:01 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 void	exit_mlx(t_window *window)
 {
-	if (!window || !window->mlx_ptr)
+	if (!window)
 		return ;
+	if (!window->mlx_ptr)
+		return (free(window));
 	mlx_destroy_image(window->mlx_ptr, window->img.mlx_img);
 	mlx_destroy_window(window->mlx_ptr, window->win_ptr);
 	mlx_destroy_display(window->mlx_ptr);
 	free(window->mlx_ptr);
 	free(window);
+	window = NULL;
 }
 
 void	print_fractal_options(void)
