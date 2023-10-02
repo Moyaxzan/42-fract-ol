@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:56:21 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/01 18:24:23 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/02 08:18:03 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,13 @@ double	ft_atof(const char *str)
 
 t_point	divide_cmplx(t_point num, t_point deno)
 {
-    t_point res;
+	t_point	res;
+	float	denominator;
 
-    double denominator = (deno.x * deno.x) + (deno.y * deno.y);
-
-    res.x = ((num.x * deno.x) + (num.y * deno.y)) / denominator;
-    res.y = ((num.y * deno.x) - (num.x * deno.y)) / denominator;
-
-    return res;
+	denominator = (deno.x * deno.x) + (deno.y * deno.y);
+	res.x = ((num.x * deno.x) + (num.y * deno.y)) / denominator;
+	res.y = ((num.y * deno.x) - (num.x * deno.y)) / denominator;
+	return (res);
 }
 
 static int	xchartoi(char c)
@@ -78,20 +77,20 @@ static int	xchartoi(char c)
 
 int	xtoi(const char *hexString)
 {
-    int	res;
+	int	res;
 	int	char_val;
 
 	res = 0;
-    if (hexString[0] == '0' && (hexString[1] == 'x'
-		|| hexString[1] == 'X'))
-        hexString += 2;
-    while (*hexString != '\0')
+	if (hexString[0] == '0' && (hexString[1] == 'x'
+			|| hexString[1] == 'X'))
+		hexString += 2;
+	while (*hexString != '\0')
 	{
-        char_val = xchartoi(*hexString);
-        if (char_val == -1)
-            return (-1);
-        res = res * 16 + char_val;
-        hexString++;
-    }
-    return (res);
+		char_val = xchartoi(*hexString);
+		if (char_val == -1)
+			return (-1);
+		res = res * 16 + char_val;
+		hexString++;
+	}
+	return (res);
 }

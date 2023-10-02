@@ -6,7 +6,7 @@
 /*   By: tsaint-p <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:45 by tsaint-p          #+#    #+#             */
-/*   Updated: 2023/10/01 19:04:12 by tsaint-p         ###   ########.fr       */
+/*   Updated: 2023/10/02 08:10:37 by tsaint-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	parse_julia(t_window *window, int *i, int argc, char **argv)
 	else if (get_julia(argv[*i], argv[*i + 1], window) == -1)
 		clean_exit(errnl("Wrong Julia arguments", 1), window);
 	else if ((window->julia_cmplx->x < -2.0f || window->julia_cmplx->x > 2.0f)
-			|| (window->julia_cmplx->y < -2.0f || window->julia_cmplx->y > 2.0f))
-		clean_exit(errnl("Values of julia must be between -2.0 and 2.0"
-			, 1), window);
+		|| (window->julia_cmplx->y < -2.0f || window->julia_cmplx->y > 2.0f))
+		clean_exit(
+			errnl("Values of julia must be between -2.0 and 2.0", 1), window);
 	else
 		*i = 4;
 }
